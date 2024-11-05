@@ -1,0 +1,135 @@
+<!-- Novo container -->
+{% extends 'admin/home/home.html' %}
+{% block conteudo %}
+  {% load bootstrap5 %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+
+  <div class="add-container ">
+    <nav class="list-content" aria-label="">
+      <ul>
+        <li class="">
+          <a href="#">Inicio</a>
+        </li> >
+        <li class="">
+          <a href="#">Sócio</a>
+        </li> >
+        <li class="">
+          <a href="#">Adicionar Sócio</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+<form class="forms-socios" action="{% url 'socios:add_socio' %}" method="post">
+  {% csrf_token %}
+  <div class="row col-12">
+    <div class="col col-md-5">
+      <label for="{{ form.nomeCompleto.id_for_label }}">Nome Completo</label>
+      {{ form.nomeCompleto }}
+      <div class="text-danger">
+        {{ form.nomeCompleto.errors }}
+    </div>
+    </div>
+
+    <div class="col col-md-3">
+      <label for="{{ form.cpf.id_for_label }}">CPF</label>
+      {{ form.cpf }}
+      <div class="text-danger">
+        {{ form.cpf.errors }}
+      </div>
+    </div>
+
+    <div class="ml-5 col">
+      <label for="{{ form.sexo.id_for_label }}">Sexo</label>
+      {{ form.sexo }}
+      <div class="text-danger">
+          {{ form.sexo.errors }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row col col-12">
+    <div class="col col-md-4">
+      <label for="{{ form.registro.id_for_label }}">RG</label>
+      {{ form.registro }}
+      <div class="text-danger">
+        {{ form.registro.errors }}
+      </div>
+    </div>
+
+    <div class="col col-md-4 ">
+      <label for="{{ form.arq_autoDeclaracao.id_for_label }}">Declaração</label>
+      {{ form.arq_autoDeclaracao }}
+      <div class="col col-md-6">
+        {% if form.instance.arq_autoDeclaracao %}
+          Arquivo atual: 
+          <a  class="btn btn-info btn-sm " target="_blank" href="{{form.instance.arq_autoDeclaracao.url}}">
+            {{form.instance.arq_autoDeclaracao.name}}
+          </a>
+    
+        {% endif %}
+      </div>
+      <div class="text-danger">
+        {{ form.arq_autoDeclaracao.errors }}
+      </div>
+    </div>
+
+    <div class="ml-5 col col-md-2">
+        <label for="{{ form.dataNascimento.id_for_label }}">Data de Nascimento</label>
+        {{ form.dataNascimento }}
+        <div class="text-danger">
+          {{ form.dataNascimento.errors }}
+        </div>
+    </div>
+  </div>
+
+  <div class="row col-12">
+    <div class="col-md-4">
+      <label for="{{ form.cargo.id_for_label }}">Cargo</label>
+      {{ form.cargo }}
+      <div class="text-danger">
+        {{ form.cargo.errors }}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="{{ form.atividade_agr.id_for_label }}">Atividade</label>
+      {{ form.atividade_agr }}
+      <div class="text-danger">
+        {{ form.atividade_agr.errors }}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="{{ form.quantidade_pessoa.id_for_label }}">Quantidade de Pessoas na Família</label>
+      {{ form.quantidade_pessoa }}
+      <div class="text-danger">
+        {{ form.quantidade_pessoa.errors }}
+      </div>
+    </div>
+    <div class="col-md-1">
+      <label for="{{ form.situacao.id_for_label }}">Situação</label>
+      {{ form.situacao }}
+      <div class="text-danger">
+        {{ form.situacao.errors }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
+  </div>
+  <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
+    <div class="col d-flex justify-content-end">
+      <button class="btn btn-success" type="submit" id="salva">Cadastrar</button>
+    </div>
+  </div>
+</form>
+<!-- Alerta fora da estrutura do grid -->
+<div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+  {% bootstrap_messages %}
+</div>
+
+    
+{% endblock conteudo %}

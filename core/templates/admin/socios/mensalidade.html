@@ -1,0 +1,78 @@
+{% extends 'admin/home/home.html' %}
+
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block conteudo %}
+
+<div class="add-container ">
+  <nav class="list-content" aria-label="">
+    <ul>
+      <li class="">
+        <a href="#">Inicio</a>
+      </li> >
+      <li class="">
+        <a href="#">Mensalidade</a>
+      </li> >
+      <li class="">
+        <a href="#">Acompanhar Mensalidade</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+  <div class="container p-0 mb-5">
+    <div class="search mt-5">
+      <h5>Digite o nome sócio</h5>
+      <form action="{% url 'socios:mensalidade' %}" method="get">
+        <div class="input-group mb-3">
+          <input id="form-contr" type="search" name="termo" class="form-control" placeholder="Ex: Maria " />
+          <div class="input-group-append">
+            <button id="buttonSearch" class="btn btn-success" type="submit">Buscar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="search h-100 w-100">
+      <table id="tabela" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Mês de Referencia</th>
+            <th scope="col">Data de Validade</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pay in payment %}
+            <tr>
+              <td>{{ pay.nome_socio }}</td>
+              <td>{{ pay.descricao }}</td>
+              <td>{{ pay.valor }}</td>
+              <td>{{ pay.refence_data }}</td>
+              <td>a{{ pay.data_validade }}</td>
+              <td> 
+                {% if 'pay.status' %}
+                  Pago
+                {% else %}
+                  Pendente
+                {% endif %}  
+              </td>
+              <td>
+                <a href="" class="btn btn-warning btn-sm" id="editar">Editar</a>
+                <a class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Alerta fora da estrutura do grid -->
+  <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+    {% bootstrap_messages %}
+  </div>
+{% endblock conteudo %}

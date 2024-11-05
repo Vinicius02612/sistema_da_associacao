@@ -1,0 +1,41 @@
+
+
+  {% if page_admin %}
+    <div class="nameUser">
+      <div class="atalhos">
+        <div class="colunAtalhos">
+          <h2>Seus Atalhos</h2>
+          <div class="cardContainer d-flex">
+            <!-- Card 1 -->
+            <div  class="card_navigator  text-white mb-3">
+              <div class="card-body ">
+                <a href="{% url 'socios:add_socio' %}"  style="text-decoration: none;">
+                  <i class="fas fa-user"></i>
+                  <p class="card-text">Adicionar Sócio</p>
+                </a>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div  class="card_navigator   text-dark mb-3">
+              <div class="card-body  ">
+                <a href="{% url 'projetos:buscar-projeto' %}"  style="text-decoration: none; ">
+                  <i class="fas fa-folder-open"></i>
+                  <p class="card-text">Acompanhar Projeto</p>
+                </a>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div  class="card_navigator  bg-width text-dark mb-3">
+              <div class="card-body">
+                <a href="{% url 'socios:mensalidade' %}"  style="text-decoration: none;">
+                  <i class="fas fa-clock"></i>
+                  <p class="card-text">Mensalidades</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
