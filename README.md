@@ -1,1 +1,1 @@
-# Este repositório será responsavel por guardar os codigos e logicas do backend do projeto AQBA desde API e Banco de Dados
+# Esta Branch será responsavel por guardar os codigos e logicas do backend do projeto AQBA desde API e Banco de Dados
