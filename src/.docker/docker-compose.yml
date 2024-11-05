@@ -1,0 +1,19 @@
+version: '3.8'
+
+
+services:
+api:
+build:
+context: ../
+dockerfile: ../Dockerfile
+volumes:
+- ../:/app
+ports:
+- "8000:8000"
+db:
+image: postgres:14.2-alpine
+environment:
+- POSTGRES_DB=associacao
+- POSTGRES_USER=postgres
+- POSTGRES_PASSWORD=vini123@77
+postgres_data:
