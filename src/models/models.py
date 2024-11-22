@@ -17,9 +17,9 @@ class User(Base):
     quantidade = Column(Integer)
     cargo = Column(String)
     dtassociacao = Column(Date)
-    mensalidades = relationship("Mensalidade", back_populates="socio")
-    projetos = relationship("Projetos", secondary="user_projetos", back_populates="socios")
-    solicitacoes = relationship("Solicitacao", back_populates="user")
+    mensalidades = relationship("Mensalidade", back_populates="socio", cascade="all, delete-orphan")
+    projetos = relationship("Projetos", back_populates="socios", cascade="all, delete-orphan")
+    solicitacoes = relationship("Solicitacao", back_populates="user", cascade="all, delete-orphan")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
@@ -35,7 +35,7 @@ class Solicitacao(Base):
 
 class Mensalidade(Base):
     __tablename__ = 'mensalidades'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Float)
     dataVencimento = Column(Date)
     dataPagamento = Column(Date)
@@ -46,7 +46,7 @@ class Mensalidade(Base):
 
 class Projetos(Base):
     __tablename__ = 'projetos'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     titulo = Column(String)
     dataInicio = Column(Date)
     dataFim = Column(Date)
@@ -55,11 +55,11 @@ class Projetos(Base):
     
 class Despesas(Base):
     __tablename__ = 'despesas'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Float)
     data = Column(Date)
     origem = Column(String)
-    id_relatorio = Column(Integer, ForeignKey('relatorios.id'))
+
 
 
 class Receitas(Base):
@@ -68,7 +68,7 @@ class Receitas(Base):
     valor = Column(Float)
     data = Column(Date)
     origem = Column(String)
-    id_relatorio = Column(Integer, ForeignKey('relatorios.id'))
+   
 
 
 class Relatorio(Base):
