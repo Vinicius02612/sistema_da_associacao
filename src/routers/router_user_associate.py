@@ -1,57 +1,32 @@
-from fastapi import APIRouter
-from schemas.schema import User, UserRequest
+from fastapi import APIRouter,Depends
+from schemas.schema import UserResponse, UserRequest
 from typing import List
+from sqlalchemy.orm import Session
+from connection.dependences import get_db
+from models.models import User 
+#importar Dependes para usar o banco de dados
 
-router = APIRouter(prefix="/rotuers")
+
+
+router = APIRouter(prefix="/users")
 
 #retorna todos os associados em forma de lista
 
 
-@router.get("/", response_model=List[User])
-def get_user_associates():
-    return [
-        User(
-            id=1,
-            name="João",
-            email="vinicius@nunes",
-            cpf="123456789",
-            data_nascimento="12/12/12",
-            senha="123456",
-            quantidade=1,
-            cargo="admin",
-            dtassociacao="12/12/12",
-            created_at="12/12/12",
-            updated_at="12/12/12"
-        ),
-        User(
-            id=2,
-            name="maria",
-            email="maria@nunes",
-            cpf="123456789",
-            data_nascimento="12/12/12",
-            senha="123456",
-            quantidade=1,
-            cargo="admin",
-            dtassociacao="12/12/12",
-            created_at="12/12/12",
-            updated_at="12/12/12"
-        )
-    ]
+@router.get("/", response_model=List[UserResponse])
+def get_user_associates(db:Session = Depends(get_db)) -> List[UserResponse]:
+    user = db.query(User).all()
+    return user
 
 
-@router.post("/", response_model=User, status_code=201)
-def create_user_associate(user: UserRequest):
-
-    return User(
-        id=1,
-        name=user.name,
-        email=user.email,
-        cpf=user.cpf,
-        data_nascimento=user.data_nascimento,
-        senha=user.senha,
-        quantidade=user.quantidade,
-        cargo=user.cargo,
-        dtassociacao=user.dtassociacao,
-        created_at=user.created_at,
-        updated_at=user.updated_at
+@router.post("/", response_model=UserResponse, status_code=201)
+def create_user_associate(user_request: UserRequest, db: Session = Depends(get_db)) -> User:
+    new_user = User(
+        **user_request.model_dump()
     )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+
+    return User(**new_user.model_dump())
