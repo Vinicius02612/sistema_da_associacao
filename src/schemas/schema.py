@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 
-class User(BaseModel):
+class UserResponse(BaseModel):
     id: int
     name: str
     email: str
@@ -31,15 +31,12 @@ class UserRequest(BaseModel):
     updated_at: str
 
 
-    class Config:
-        orm_mode = True
-
 
 
 class Solicitacao(BaseModel):
     id: int
     idUsuario: int
-    usuario: User
+    usuario: UserResponse
     data: str
     status: str
 
@@ -48,7 +45,7 @@ class Solicitacao(BaseModel):
 
 class SolicitacaoRequest(BaseModel):
     idUsuario: int
-    usuario: User
+    usuario: UserResponse
     data: str
     status: str
 
@@ -62,7 +59,7 @@ class Mensalidade(BaseModel):
     dataVencimento: str
     dataPagamento: str
     idSocio: int
-    socio: User
+    socio: UserResponse
 
     class Config:
         orm_mode = True
@@ -73,7 +70,7 @@ class MensalidadeRequest(BaseModel):
     dataVencimento: str
     dataPagamento: str
     idSocio: int
-    socio: User
+    socio: UserResponse
 
     class Config:
         orm_mode = True
@@ -83,6 +80,7 @@ class Projetos(BaseModel):
     titulo: str
     dataInicio: str
     dataFim: str
+    user_id:str
 
     class Config:
         orm_mode = True
@@ -92,6 +90,7 @@ class ProjetosRequest(BaseModel):
     titulo: str
     dataInicio: str
     dataFim: str
+    user_id:str
 
     class Config:
         orm_mode = True
