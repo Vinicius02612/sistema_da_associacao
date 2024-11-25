@@ -1,18 +1,19 @@
 from pydantic import BaseModel
 from typing import List
+from datetime import date, datetime
 
 class UserResponse(BaseModel):
     id: int
     name: str
     email: str
     cpf: str
-    data_nascimento: str
+    data_nascimento: date
     senha: str
+    created_at: datetime
+    updated_at: datetime
     quantidade: int
     cargo: str
-    dtassociacao: str
-    created_at: str
-    updated_at: str
+    dtassociacao: date
 
 
     class Config:
@@ -52,7 +53,7 @@ class SolicitacaoResponse(BaseModel):
 
     class Config:
         orm_mode = True
-        
+
 class SolicitacaoRequest(BaseModel):
     idUsuario: int
     usuario: UserResponse
@@ -85,7 +86,17 @@ class MensalidadeRequest(BaseModel):
     class Config:
         orm_mode = True
 
-class Projetos(BaseModel):
+class ProjetosBase(BaseModel):
+    id: int
+    titulo: str
+    dataInicio: str
+    dataFim: str
+    user_id:str
+
+    class Config:
+        orm_mode = True
+
+class ProjetosResponse(BaseModel):
     id: int
     titulo: str
     dataInicio: str
@@ -105,7 +116,16 @@ class ProjetosRequest(BaseModel):
     class Config:
         orm_mode = True
 
-class Despesa(BaseModel):
+class DespesaBase(BaseModel):
+    id: int
+    valor: float
+    data: str
+    origem: str
+
+    class Config:
+        orm_mode = True
+
+class DespesaResponse(BaseModel):
     id: int
     valor: float
     data: str
@@ -144,7 +164,7 @@ class ReceitasRequest(BaseModel):
 
 class Relatorio(BaseModel):
     id: int
-    despesa: List[Despesa]
+    despesa: List[DespesaResponse]
     receita: List[Receitas]
 
     class Config:
@@ -153,7 +173,7 @@ class Relatorio(BaseModel):
 
 class RelatorioRequest(BaseModel):
     id: int
-    despesa: List[Despesa]
+    despesa: List[DespesaResponse]
     receita: List[Receitas]
 
     class Config:

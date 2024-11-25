@@ -37,9 +37,9 @@ class Mensalidade(Base):
     __tablename__ = 'mensalidades'
     id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Float)
-    dataVencimento = Column(Date)
-    dataPagamento = Column(Date)
-    idSocio = Column(Integer, ForeignKey('user.id'))
+    dtvencimento = Column(Date)
+    dtpsagamento = Column(Date)
+    idsocio = Column(Integer, ForeignKey('user.id'))
     # Relacionamento com User
     socio = relationship("User", back_populates="mensalidades")
 
@@ -48,8 +48,8 @@ class Projetos(Base):
     __tablename__ = 'projetos'
     id = Column(Integer, primary_key=True, autoincrement=True)
     titulo = Column(String)
-    dataInicio = Column(Date)
-    dataFim = Column(Date)
+    dtinicio = Column(Date)
+    dtfim = Column(Date)
     # Relacionamento com User
     socios = relationship("User", secondary="user_projetos", back_populates="projetos")
     
