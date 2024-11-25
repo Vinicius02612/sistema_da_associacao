@@ -33,7 +33,7 @@ export default function Login() {
                         </div>
                     </div>
                     <button type="submit" className="btn-entrar">Login</button>
-                    <button type="submit" className="btn-cadastrar"><Link className="link" to="cadastro">Cadastre-se</Link></button>
+                    <button type="submit" className="btn-cadastrar2"><Link className="link" to="cadastro">Cadastre-se</Link></button>
                 </form>
             </div>
             
