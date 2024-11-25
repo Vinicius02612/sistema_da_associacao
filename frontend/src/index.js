@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 import Login from './routes/Login/Login';
 import Cadastro from './routes/Cadastro/Cadastro';
+import Home from './routes/Home/Home';
 
 const BrowserRouter = createBrowserRouter([
   {
@@ -13,7 +14,11 @@ const BrowserRouter = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/cadastro',
+    path: 'home',
+    element: <Home />,
+  },
+  {
+    path: 'cadastro',
     element: <Cadastro />,
   }
 ])

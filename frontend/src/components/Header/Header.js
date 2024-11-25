@@ -1,6 +1,6 @@
 import './Header.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons';
+import { faUser} from '@fortawesome/free-solid-svg-icons';
 import logo from "../../assets/images/logoMini.png";
 export default function Header() {
     return(
