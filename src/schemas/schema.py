@@ -33,7 +33,7 @@ class UserRequest(BaseModel):
 
 
 
-class Solicitacao(BaseModel):
+class SolicitacaoBase(BaseModel):
     id: int
     idUsuario: int
     usuario: UserResponse
@@ -43,6 +43,16 @@ class Solicitacao(BaseModel):
     class Config:
         orm_mode = True
 
+class SolicitacaoResponse(BaseModel):
+    id: int
+    idUsuario: int
+    usuario: UserResponse
+    data: str
+    status: str
+
+    class Config:
+        orm_mode = True
+        
 class SolicitacaoRequest(BaseModel):
     idUsuario: int
     usuario: UserResponse

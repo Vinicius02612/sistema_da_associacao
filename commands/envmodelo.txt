@@ -90,3 +90,11 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+
+CONFIGS DABATABES:
+    POSTGRES_USER = "postgres"
+    POSTGRES_PASSWORD = vini123
+    POSTGRES_SERVER = "localhost"
+    POSTGRES_PORT = 5432 # default postgres port is 5432
+    POSTGRES_DB ="db_associates"
