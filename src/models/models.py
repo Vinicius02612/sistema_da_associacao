@@ -5,7 +5,13 @@ from sqlalchemy.sql import func
 from connection.database import Base
 
 
-
+# Tabela de associação para User e Projetos
+user_projetos = Table(
+    'user_projetos',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('user.id')),
+    Column('projeto_id', Integer, ForeignKey('projetos.id'))
+)
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -17,19 +23,19 @@ class User(Base):
     quantidade = Column(Integer)
     cargo = Column(String)
     dtassociacao = Column(Date)
-    mensalidades = relationship("Mensalidade", back_populates="socio", cascade="all, delete-orphan")
-    projetos = relationship("Projetos", back_populates="socios", cascade="all, delete-orphan")
-    solicitacoes = relationship("Solicitacao", back_populates="user", cascade="all, delete-orphan")
+    _mensalidades = relationship("Mensalidade", backref="User", cascade="all, delete-orphan")
+    _projetos = relationship("Projetos", backref="User", cascade="all, delete-orphan")
+    _solicitacoes = relationship("Solicitacao", backref="User", cascade="all, delete-orphan")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 class Solicitacao(Base):
     __tablename__ = 'solicitacoes'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    idUsuario = Column(Integer, ForeignKey('user.id'))
     data = Column(Date)
     status = Column(String)
-    user = relationship("User", back_populates="solicitacoes")
+    iduser = Column(Integer, ForeignKey('user.id'))
+    _user = relationship("User", backref="solicitacoes")
 
 
 
@@ -38,10 +44,10 @@ class Mensalidade(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Float)
     dtvencimento = Column(Date)
-    dtpsagamento = Column(Date)
-    idsocio = Column(Integer, ForeignKey('user.id'))
+    dtpagamento = Column(Date)
+    iduser = Column(Integer, ForeignKey('user.id'))
     # Relacionamento com User
-    socio = relationship("User", back_populates="mensalidades")
+    _socio = relationship("User", backref="mensalidades")
 
 
 class Projetos(Base):
@@ -51,7 +57,8 @@ class Projetos(Base):
     dtinicio = Column(Date)
     dtfim = Column(Date)
     # Relacionamento com User
-    socios = relationship("User", secondary="user_projetos", back_populates="projetos")
+    iduser = Column(Integer, ForeignKey('user.id'))
+    _socios = relationship("User", secondary="user_projetos", backref="projetos")
     
 class Despesas(Base):
     __tablename__ = 'despesas'
@@ -77,14 +84,6 @@ class Relatorio(Base):
     data = Column(Date)
     idDespesa = Column(Integer, ForeignKey('despesas.id'))
     idReceita = Column(Integer, ForeignKey('receitas.id'))
-    despesa = relationship("Despesas", back_populates="relatorios")
-    receita = relationship("Receitas", back_populates="relatorios")
+    _despesa = relationship("Despesas", backref="relatorios")
+    _receita = relationship("Receitas", backref="relatorios")
 
-
-# Tabela de associação para User e Projetos
-user_projetos = Table(
-    'user_projetos',
-    Base.metadata,
-    Column('user_id', Integer, ForeignKey('user.id')),
-    Column('projeto_id', Integer, ForeignKey('projetos.id'))
-)
