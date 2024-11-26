@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends
+from fastapi import APIRouter,Depends,HTTPException
 from schemas.schema import UserResponse, UserRequest
 from typing import List
 from sqlalchemy.orm import Session
@@ -16,26 +16,47 @@ router = APIRouter(prefix="/users")
 @router.get("/", response_model=List[UserResponse])
 def get_user_associates(db:Session = Depends(get_db)) -> List[UserResponse]:
     user = db.query(User).all()
+    if not user:
+        raise HTTPException(status_code=404, detail="Não há usuários cadastrados")
+    else:
+        return user
+
+@router.get("/{id}", response_model=UserResponse)
+def get_user_associate(id:int, db:Session = Depends(get_db)) -> UserResponse:
+    user = db.query(User).filter(User.id == id).first()
+    return user
+
+#rota para buscar usuarui pelo cpf
+@router.get("/cpf/{cpf}", response_model=UserResponse)
+def get_user_by_cpf(cpf:str, db:Session = Depends(get_db)) -> UserResponse:
+    user = db.query(User).filter(User.cpf == cpf).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
     return user
 
 
 @router.post("/", response_model=UserResponse, status_code=201)
 def create_user_associate(user_request: UserRequest, db: Session = Depends(get_db)) -> User:
-    new_user = User(
-        **user_request.model_dump()
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-
-
-    return User(**new_user.model_dump())
+    #verificar se o cpf já existe
+    user = db.query(User).filter(User.cpf == user_request.cpf).first()
+    if user:
+        raise HTTPException(status_code=400, detail="CPF já cadastrado")
+    else:
+        new_user = User(
+            **user_request.model_dump()
+        )
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+    return new_user
 
 @router.put("/{id}", response_model=UserResponse)
 def update_user(id:int, user_request: UserRequest, db: Session = Depends(get_db)) -> User:
     user = db.query(User).filter(User.id == id).first()
-    user.name = user_request.name
-    user.email = user_request.email
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    for key, value in user_request.dict().items():
+        setattr(user, key, value)
     db.commit()
     db.refresh(user)
     return user
@@ -44,8 +65,11 @@ def update_user(id:int, user_request: UserRequest, db: Session = Depends(get_db)
 @router.delete("/{id}", status_code=204)
 def delete_user(id:int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == id).first()
-    db.delete(user)
-    db.commit()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    else:
+        db.delete(user)
+        db.commit()
     return None
 
 #rota para buscar um usuario pelo nome ou cpf
