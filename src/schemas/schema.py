@@ -9,11 +9,11 @@ class UserResponse(BaseModel):
     cpf: str
     data_nascimento: date
     senha: str
-    created_at: datetime
-    updated_at: datetime
     quantidade: int
     cargo: str
     dtassociacao: date
+    created_at: datetime
+    updated_at: datetime
 
 
     class Config:
@@ -23,52 +23,66 @@ class UserRequest(BaseModel):
     name: str
     email: str
     cpf: str
-    data_nascimento: str
+    data_nascimento: date
     senha: str
     quantidade: int
     cargo: str
     dtassociacao: str
-    created_at: str
-    updated_at: str
+    created_at: datetime
+    updated_at: datetime
 
 
 
 
 class SolicitacaoBase(BaseModel):
     id: int
-    idUsuario: int
-    usuario: UserResponse
     data: str
     status: str
+    idusuario: int
+    usuario: UserResponse
+
 
     class Config:
         orm_mode = True
 
 class SolicitacaoResponse(BaseModel):
     id: int
-    idUsuario: int
-    usuario: UserResponse
-    data: str
+    data: date
     status: str
+    idusuario: int
+    usuario: UserResponse
+ 
 
     class Config:
         orm_mode = True
 
 class SolicitacaoRequest(BaseModel):
-    idUsuario: int
-    usuario: UserResponse
     data: str
     status: str
+    idusuario: int
+    usuario: UserResponse
+
 
     class Config:
         orm_mode = True
 
 
-class Mensalidade(BaseModel):
+class MensalidadeBase(BaseModel):
     id: int
     valor: float
-    dataVencimento: str
-    dataPagamento: str
+    dtvencimento: date
+    dtpagamento: date
+    idSocio: int
+    socio: UserResponse
+
+    class Config:
+        orm_mode = True
+
+class MensalidadeResponse(BaseModel):
+    id: int
+    valor: float
+    dtvencimento: date
+    dtpagamento: date
     idSocio: int
     socio: UserResponse
 
@@ -78,8 +92,8 @@ class Mensalidade(BaseModel):
 class MensalidadeRequest(BaseModel):
     id: int
     valor: float
-    dataVencimento: str
-    dataPagamento: str
+    dtvencimento: date
+    dtpagamento: date
     idSocio: int
     socio: UserResponse
 
@@ -89,9 +103,9 @@ class MensalidadeRequest(BaseModel):
 class ProjetosBase(BaseModel):
     id: int
     titulo: str
-    dataInicio: str
-    dataFim: str
-    user_id:str
+    dtinicio: date
+    dtfim: date
+    user_id:int
 
     class Config:
         orm_mode = True
@@ -99,19 +113,21 @@ class ProjetosBase(BaseModel):
 class ProjetosResponse(BaseModel):
     id: int
     titulo: str
-    dataInicio: str
-    dataFim: str
-    user_id:str
+    dtinicio:date
+    dtfim: date
+    user_id:int
+
 
     class Config:
         orm_mode = True
 
 class ProjetosRequest(BaseModel):
-    id: int
     titulo: str
-    dataInicio: str
-    dataFim: str
-    user_id:str
+    dtinicio: date
+    dtfim: date
+    user_id:int
+
+
 
     class Config:
         orm_mode = True
@@ -119,7 +135,7 @@ class ProjetosRequest(BaseModel):
 class DespesaBase(BaseModel):
     id: int
     valor: float
-    data: str
+    data: date
     origem: str
 
     class Config:
@@ -128,7 +144,7 @@ class DespesaBase(BaseModel):
 class DespesaResponse(BaseModel):
     id: int
     valor: float
-    data: str
+    data: date
     origem: str
 
     class Config:
@@ -136,7 +152,7 @@ class DespesaResponse(BaseModel):
 
 class DespesaRequest(BaseModel):
     valor: float
-    data: str
+    data: date
     origem: str
 
     class Config:
@@ -147,7 +163,7 @@ class DespesaRequest(BaseModel):
 class Receitas(BaseModel):
     id: int
     valor: float
-    data: str
+    data: date
     origem: str
 
     class Config:
@@ -156,7 +172,7 @@ class Receitas(BaseModel):
 
 class ReceitasRequest(BaseModel):
     valor: float
-    data: str
+    data: date
     origem: str
 
     class Config:
