@@ -24,7 +24,7 @@ def post_projetos(projetos: ProjetosRequest, db: Session = Depends(get_db)) -> P
     db.commit()
     db.refresh(new_projetos)
 
-    return Projetos(**new_projetos.model_dump())
+    return new_projetos
 
 @router.put("/{id}", response_model=ProjetosResponse)
 def projetos_update(id:int, projetos: ProjetosRequest, db: Session = Depends(get_db)) -> Projetos:
