@@ -1,20 +1,3 @@
- 1183  alembic init alembic
- 1184  alembic revision --autogenerate -m "Nova Migracao"
- 1185  alembic upgrade head
- 1186  uvicorn main:app --reload
-
-
- 1191  alembic revision --autogenerate -m "Nova Migracao"
- 1192  alembic upgrade head
- 1193  alembic revision --autogenerate -m "Nova Migracao"
- 1195  alembic revision --autogenerate -m "Nova Migracao"
- 1196  alembic upgrade head
- 1197  uvicorn main:app --reload
- 1199  uvicorn main:app --reload
-
-
-SQL COMMANDS
-
 SELECT *FROM "user";
 SELECT *FROM "projetos";
 SELECT *FROM "mensalidades";
