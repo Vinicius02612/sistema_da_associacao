@@ -36,3 +36,13 @@ def despesas_update(id:int, despesa: DespesaRequest, db: Session = Depends(get_d
     db.commit()
     db.refresh(despesa)
     return despesa
+
+
+@router.delete("/{id}", response_model=DespesaResponse)
+def despesas_delete(id:int, db: Session = Depends(get_db)) -> Despesas:
+    despesa = db.query(Despesas).filter(Despesas.id == id).first()
+    if not despesa:
+        raise HTTPException(status_code=404, detail="Despesa não encontrada")
+    db.delete(despesa)
+    db.commit()
+    return despesa
