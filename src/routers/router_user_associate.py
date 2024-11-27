@@ -76,4 +76,5 @@ def delete_user(id:int, db: Session = Depends(get_db)):
 @router.get("/{name_or_cpf}", response_model=UserResponse)
 def get_user_by_name_or_cpf(name_or_cpf:str, db:Session = Depends(get_db)) -> UserResponse:
     user = db.query(User).filter(User.name == name_or_cpf or User.cpf == name_or_cpf).first()
+    print(user)
     return user

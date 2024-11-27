@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,field_validator
 from typing import List
 from datetime import date, datetime
 
@@ -12,9 +12,9 @@ class UserResponse(BaseModel):
     quantidade: int
     cargo: str
     dtassociacao: date
-    created_at: datetime
-    updated_at: datetime
 
+
+  
 
     class Config:
         orm_mode = True
@@ -23,15 +23,20 @@ class UserRequest(BaseModel):
     name: str
     email: str
     cpf: str
-    data_nascimento: date
+    data_nascimento: str
     senha: str
     quantidade: int
     cargo: str
-    dtassociacao: str
-    created_at: datetime
-    updated_at: datetime
+    dtassociacao: date
 
 
+    @field_validator("cpf", mode="before")
+    def cpf_validator(cls, value):
+        if len(value) != 11:
+            raise ValueError("CPF deve conter 11 digitos")
+        return value
+    
+  
 
 
 class SolicitacaoBase(BaseModel):
@@ -60,7 +65,7 @@ class SolicitacaoRequest(BaseModel):
     data: str
     status: str
     idusuario: int
-    usuario: UserResponse
+    usuario: UserRequest
 
 
     class Config:
@@ -105,7 +110,7 @@ class ProjetosBase(BaseModel):
     titulo: str
     dtinicio: date
     dtfim: date
-    user_id:int
+    iduser:int
 
     class Config:
         orm_mode = True
@@ -115,8 +120,7 @@ class ProjetosResponse(BaseModel):
     titulo: str
     dtinicio:date
     dtfim: date
-    user_id:int
-
+    iduser:int
 
     class Config:
         orm_mode = True
@@ -125,10 +129,7 @@ class ProjetosRequest(BaseModel):
     titulo: str
     dtinicio: date
     dtfim: date
-    user_id:int
-
-
-
+    iduser:int
     class Config:
         orm_mode = True
 

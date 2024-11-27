@@ -9,10 +9,13 @@ from models.models import Projetos
 router = APIRouter(prefix="/projetos")
 
 #retorna todos os projetos em forma de lista
-@router.get("/", response_model=List[ProjetosResponse])
-def get_projetos(db:Session = Depends(get_db)) -> List[Projetos]:
+@router.get("/", response_model=List[ProjetosResponse],status_code=200)
+def get_projetos(db:Session = Depends(get_db)) -> ProjetosResponse:
     projetos = db.query(Projetos).all()
-    return projetos
+    if not projetos:
+        raise HTTPException(status_code=404, detail="Não há projetos cadastrados")
+    else:
+        return projetos
 
 
 @router.post("/", response_model=ProjetosResponse, status_code=201)
