@@ -95,11 +95,11 @@ npm run dev
 ```
 # Contribuição
 
-<img src="https://github.com/aleffericlys.png" width="100" height="100"> <h3>Alef Fericlys [GitHub:](https://github.com/aleffericlys)</h3> 
+<img src="https://github.com/aleffericlys.png" width="100" height="100"> <h3>Alef Fericlys[GitHub:](https://github.com/aleffericlys)</h3> 
 
-<img src="https://github.com/Vinicius02612.png" width="100" height="100"> <h3>Vinicius Nunes [GitHub:](https://github.com/Vinicius02612)</h3> 
+<img src="https://github.com/Vinicius02612.png" width="100" height="100"><h3>Vinicius Nunes[GitHub:](https://github.com/Vinicius02612)</h3> 
 
-<img src="https://github.com/May-Raa.png" width="100" height="100">  <h3>Mayra Caetano [GitHub:](https://github.com/May-Raa) 
+<img src="https://github.com/May-Raa.png" width="100" height="100"><h3>Mayra Caetano[GitHub:](https://github.com/May-Raa) 
 </h3> 
 
 
