@@ -23,20 +23,10 @@ ENV VITE_DEFAULT_LINK_PREFIX=$VITE_DEFAULT_LINK_PREFIX
 # Executando o build do projeto
 RUN npm run build
 
-# Nginx stage
-FROM nginx:alpine
 
-# Removendo arquivos padrão do nginx
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copiando os arquivos gerados no build para o nginx
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copiando o arquivo de configuração do nginx
-COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 # Expondo a porta 80
 EXPOSE 80
 
 # Comando para rodar o nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "8080"]

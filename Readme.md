@@ -87,9 +87,11 @@ npm run dev
 # Estrutura do Projeto
 
 ```
-/seu-projeto
-|-- backend/   # Código do backend com FastAPI
-|-- frontend/  # Código do frontend com Vue.js e Vuetify
+/sistema_da_associacao
+|-- /Backend
+    | -- /  # Código do backend com FastAPI
+|-- /Frontend
+    |--   # Código do frontend com Vue.js e Vuetify
 |-- docker-compose.yml  # Configuração do Docker
 |-- README.md  # Este arquivo
 ```
