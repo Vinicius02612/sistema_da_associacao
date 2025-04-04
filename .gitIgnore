@@ -1,5 +1,5 @@
 
-postresql/
+postegres/
 venv/
 djangoapp/static/
 /djangoapp/media/
