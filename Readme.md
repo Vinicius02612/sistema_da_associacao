@@ -102,5 +102,6 @@ npm run dev
 <img src="https://github.com/May-Raa.png" width="100" height="100" style="border-radius: 50%;" ><h3>Mayra Caetano[GitHub:](https://github.com/May-Raa) 
 </h3> 
 
-
+<img src="https://github.com/Mrprince0421.png" width="100" height="100" style="border-radius: 50%;" ><h3>\Marcos Eduardo[GitHub:](https://github.com/Mrprince0421) 
+</h3> 
 
