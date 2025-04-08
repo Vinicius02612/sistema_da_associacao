@@ -105,6 +105,7 @@ npm run dev
 |-- README.md  # Este arquivo
 ```
 
+
 # Tabela de Versões (Implementação do Figma)
 
 | Titulo       | Descrição                       | Data           | Responsável                                        | 
@@ -115,7 +116,9 @@ npm run dev
 | Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
 
+## Link para o figma:
 
+Figma Sistema Associação [figma:](https://www.figma.com/design/qz8cxCq66quwiOBnGCdRZ0/Sistema-Associa%C3%A7%C3%A3o?node-id=558-16&p=f&t=7RM1VE3pdhgqcce0-0)
 
 
 # Contribuição
