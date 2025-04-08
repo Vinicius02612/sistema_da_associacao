@@ -113,6 +113,7 @@ npm run dev
 | Tela Adminstrador   | Protótipo da tela Sócio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
 
 
 
