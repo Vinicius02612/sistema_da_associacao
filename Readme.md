@@ -47,13 +47,22 @@ git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
 ```
 
+## Rodando com Docker
+
+Instale o docker e docker-compose
 
 
 ## Rodando Manualmente
 
 Backend
 
-Instale as dependências do backend:
+Instale as dependências do backend: 
+
+```
+sudo apt-get update
+sudo apt-get install ./docker-desktop-amd64.deb
+
+```
 
 
 ```
@@ -95,6 +104,17 @@ npm run dev
 |-- docker-compose.yml  # Configuração do Docker
 |-- README.md  # Este arquivo
 ```
+
+# Tabela de Versões (Implementação do Figma)
+
+| Titulo       | Descrição                       | Data           | Responsável                                        | 
+| :---         |     :---:                       | :---           |      ---:                                          |
+| Tela login   | Criar figma da tela de login    |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
+| Tela Adminstrador   | Criar figma tela socio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+
+
+
+
 # Contribuição
 
 <img src="https://github.com/aleffericlys.png" width="100" height="100" style="border-radius: 50%;" > <h3>Alef Fericlys[GitHub:](https://github.com/aleffericlys)</h3> 
