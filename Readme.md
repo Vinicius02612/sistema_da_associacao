@@ -109,8 +109,10 @@ npm run dev
 
 | Titulo       | Descrição                       | Data           | Responsável                                        | 
 | :---         |     :---:                       | :---           |      ---:                                          |
-| Tela login   | Criar figma da tela de login    |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
-| Tela Adminstrador   | Criar figma tela socio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela login   | Protótipo da tela de Login  e Cadastro |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
+| Tela Adminstrador   | Protótipo da tela Sócio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 
 
 
