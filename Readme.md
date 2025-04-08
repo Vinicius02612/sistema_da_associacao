@@ -43,8 +43,8 @@ Python 3.10+ (caso deseje rodar o backend sem Docker)
 ## Clonando o Repositório
 
 ```
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/Vinicius02612/sistema_da_associacao.git
+cd sistema_da_associacao
 ```
 
 ## Rodando com Docker
