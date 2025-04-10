@@ -115,6 +115,9 @@ npm run dev
 | Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
+| Tela de Listagem de Projetos | Protótipo da Tela de lista de Projetos| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+| Tela de Editar Projeto | Protótipo da Tela de Editar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+| Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
 
 ## Link para o figma:
 
