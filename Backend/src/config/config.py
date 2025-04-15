@@ -14,7 +14,7 @@ class Settings:
     POSTGRES_SERVER : str = os.getenv("POSTGRES_SERVER","localhost")
     POSTGRES_PORT : str = os.getenv("POSTGRES_PORT",5432) # default postgres port is 5432
     POSTGRES_DB : str = os.getenv("POSTGRES_DB","db_associates")
-    DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    DATABASE_URL = f"postgresql://postgres:vini123@postgres:5432/db_associates"
 
     SECRETY_KEY = 'FSDFSDFSDFSDFSDSDS.ASDASDASDASD'
     ALGORITHM = 'HS256'

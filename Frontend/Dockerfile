@@ -21,12 +21,11 @@ ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_DEFAULT_LINK_PREFIX=$VITE_DEFAULT_LINK_PREFIX
 
 # Executando o build do projeto
-RUN npm run build
+RUN npm run dev
 
 
 
 # Expondo a porta 80
 EXPOSE 80
 
-# Comando para rodar o nginx
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "8080"]

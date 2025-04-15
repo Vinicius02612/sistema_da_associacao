@@ -1,16 +1,30 @@
 version: "3.9"
 
 services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: db_associates
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:  vini123
+      PGDATA: /data/postgres
+    volumes:
+      - ./postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
   backend:
     build: ./Backend
     ports:
-      - "8000:8000"
+      - "8000:80"
     volumes:
       - ./Backend:/code
     environment:
       - PYTHONUNBUFFERED=1
+      - DATABASE_URL=vinicius://postgres:vini123@postgres:5432/db_associates
     depends_on:
-      - frontend
+      - postgres
 
   frontend:
     build: ./Frontend
@@ -20,3 +34,6 @@ services:
       - ./Frontend:/app
     environment:
       - NODE_ENV=development
+  
+
+

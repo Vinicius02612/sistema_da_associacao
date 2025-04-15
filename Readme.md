@@ -43,17 +43,26 @@ Python 3.10+ (caso deseje rodar o backend sem Docker)
 ## Clonando o Repositório
 
 ```
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/Vinicius02612/sistema_da_associacao.git
+cd sistema_da_associacao
 ```
 
+## Rodando com Docker
+
+Instale o docker e docker-compose
 
 
 ## Rodando Manualmente
 
 Backend
 
-Instale as dependências do backend:
+Instale as dependências do backend: 
+
+```
+sudo apt-get update
+sudo apt-get install ./docker-desktop-amd64.deb
+
+```
 
 
 ```
@@ -95,6 +104,26 @@ npm run dev
 |-- docker-compose.yml  # Configuração do Docker
 |-- README.md  # Este arquivo
 ```
+
+
+# Tabela de Versões (Implementação do Figma)
+
+| Titulo       | Descrição                       | Data           | Responsável                                        | 
+| :---         |     :---:                       | :---           |      ---:                                          |
+| Tela login   | Protótipo da tela de Login  e Cadastro |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
+| Tela Adminstrador   | Protótipo da tela Sócio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
+| Tela de Listagem de Projetos | Protótipo da Tela de lista de Projetos| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+| Tela de Editar Projeto | Protótipo da Tela de Editar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+| Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+
+## Link para o figma:
+
+Figma Sistema Associação [figma:](https://www.figma.com/design/qz8cxCq66quwiOBnGCdRZ0/Sistema-Associa%C3%A7%C3%A3o?node-id=558-16&p=f&t=7RM1VE3pdhgqcce0-0)
+
+
 # Contribuição
 
 <img src="https://github.com/aleffericlys.png" width="100" height="100" style="border-radius: 50%;" > <h3>Alef Fericlys[GitHub:](https://github.com/aleffericlys)</h3> 
