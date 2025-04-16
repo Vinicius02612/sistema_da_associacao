@@ -27,13 +27,15 @@ services:
       - postgres
 
   frontend:
-    build: ./Frontend
+    build:
+      context: ./Frontend
+      target: build
     ports:
-      - "8080:8080"
+    - "8080:8080"
     volumes:
-      - ./Frontend:/app
+    - ./Frontend:/app
     environment:
-      - NODE_ENV=development
+    - NODE_ENV=development
   
 
 
