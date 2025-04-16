@@ -1,8 +1,14 @@
 <template>
   <v-app>
-		<default-top-bar v-if="isLogged"/>
-    <default-bar v-if="isLogged"/>
-    <default-view />
+		<div class="d-flex">
+			<default-bar v-if="isLogged"/>
+			<div class="d-flex">
+				<default-top-bar v-if="isLogged"/>
+			</div>
+		</div>
+		<default-view />
+		<defout-footer v-if="isLogged"/>
+		
   </v-app>
 </template>
 
@@ -10,6 +16,8 @@
   import DefaultBar from './AppBar.vue'
   import DefaultView from './View.vue'
 	import DefaultTopBar from './TopBar.vue';
+	import DefoutFooter from './AppFooter.vue';
+
   import { useUserStore  } from '@/stores/user.store';
 
   const userStore = useUserStore();
@@ -19,10 +27,12 @@
 			DefaultBar,
 			DefaultView,
 			DefaultTopBar,
+			DefoutFooter,
 		},
 		computed: {
 			isLogged() {
-				return userStore.isLogged && userStore.getUser.isEmailVerified;
+				return true; // userStore.isLogged;
+				// return userStore.isLogged && userStore.getUser.isEmailVerified;
 			},
 		},
 	};
