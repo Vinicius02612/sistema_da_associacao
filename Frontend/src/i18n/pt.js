@@ -83,13 +83,14 @@ export default {
       register: "Cadastrar",
     },
     login: {
+			title: "Olá, faça seu Login ou crie uma conta! ",
       email: "Email",
       emailField: "Digite seu email",
       password: "Senha",
       passwordField: "Digite a senha",
       forgotPassword: "Esqueci minha senha",
       or: "ou",
-      register: "Cadastrar-se agora mesmo",
+      register: "Cadastrar-se",
     },
   },
   sort: {
@@ -110,7 +111,7 @@ export default {
     cardNewConnection: "Nova Conexão",
     orderBy: "Ordenar",
     googleLogin: "Continuar com Google",
-    login: "Realizar Login",
+    login: "Login",
   },
   home: {
     connections: "Conexões",
@@ -323,7 +324,10 @@ export default {
     exit: "Sair",
     fixMenu: "Fixar Menu",
     fixedMenu: "Menu Fixo",
-    connections: "Conexões",
+    home: "Inicio",
+		partners: "Sócios",
+		projects: "Projetos",
+		mensality: "Mensalidades",
   },
   footer: {
     terms: "Termos e Políticas",
