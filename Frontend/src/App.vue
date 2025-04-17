@@ -83,7 +83,7 @@ const authService = new AuthService();
 
 <style>
   .main {
-    background-color: #ffffff !important;
+    background-color: #d9d9d9 !important;
   }
 
   html, body {

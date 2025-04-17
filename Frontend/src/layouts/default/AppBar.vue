@@ -1,24 +1,39 @@
 <template>
   <v-navigation-drawer
+		color="#1D271A"
     :rail="!isLocked"
     permanent
     elevation="0"
     app
+		z-index="1"
     :expand-on-hover="!isLocked  && !$vuetify.display.mobile"
   >
+	<div class="toplogo" style="width: 100%; height: 64px; display: flex; align-items: center;">
+		<v-img src="@/assets/LogoHorizontal.svg" max-width="190px" max-height="50px"
+		class="ml-6">
+			<v-btn width="100%" height="100%" @click="goToHome" variant="plain">
+				<v-tooltip activator="parent" location="end">Home</v-tooltip>
+			</v-btn>
+		</v-img>
+	</div>
 	<v-divider></v-divider>
 	<v-list density="compact" nav>
-		<v-list-item prepend-icon="mdi-robot" :title="$t('menu.connections')" to="/connections" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-home" :title="$t('menu.home')" to="/" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-account	" :title="$t('menu.partners')" to="/socios" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-folder-multiple" :title="$t('menu.projects')" to="/projetos" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-calendar-month" :title="$t('menu.mensality')" to="/mensalidades" active-class="custon-active-iten"></v-list-item>
 		<!-- <v-list-item prepend-icon="mdi-calendar" :title="$t('events.header')" to="/events" active-class="custon-active-iten"></v-list-item>
 		<v-list-item prepend-icon="mdi-bell" :title="$t('alerts.header')" to="/alerts" active-class="custon-active-iten"></v-list-item> -->
 		<!-- <v-list-item prepend-icon="mdi-tools" :title="$t('menu.testes')" to="/testes" active-class="custon-active-iten"></v-list-item>  -->
-		<v-divider></v-divider>
-      <v-list-item prepend-icon="mdi-exit-to-app" :title="$t('menu.exit')" @click="logout"></v-list-item>
-    </v-list>
-
-    <template v-slot:append>
-      <v-list density="compact" nav class="d-none d-md-block">
-        <v-list-item 
+		<!-- <v-divider></v-divider> -->
+	</v-list>
+	
+	<template v-slot:append>
+		<v-list density="compact" nav class="d-none d-md-block">
+			<v-divider :thickness="3"></v-divider>
+			<v-list-item prepend-icon="mdi-exit-to-app" :title="$t('menu.exit')" @click="logout"></v-list-item>
+			
+        <!-- <v-list-item 
 					:prepend-icon="lockMenuIcon"
 					:title="lockMenuText"
 					value="fixed"
@@ -26,7 +41,7 @@
 					:active="isLocked"
 					active-class="custon-active-iten"
 				>
-				</v-list-item>
+				</v-list-item> -->
 			</v-list>
 			
 			<!-- <div class="d-flex flex-row">				
@@ -50,7 +65,7 @@
       return {
         drawer: true,
         rail: true,
-        isLocked: false,
+        isLocked: true,
       }
     },
 
