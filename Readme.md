@@ -120,6 +120,7 @@ npm run dev
 | Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Tela de Mensalidades | Protótipo da Tela de Mensalidades| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Correção do fluxo | Correção do fluxo do Usuário ADM| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Criação do Módulo "Financeiro" | Alteração da tela de Mensalidades para gerenciamento do Financeiro| 24/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 
 
 ## Link para o figma:
