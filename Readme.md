@@ -121,6 +121,7 @@ npm run dev
 | Tela de Mensalidades | Protótipo da Tela de Mensalidades| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Correção do fluxo | Correção do fluxo do Usuário ADM| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Criação do Módulo "Financeiro" | Alteração da tela de Mensalidades para gerenciamento do Financeiro| 24/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de listagem de Receitas | Criação da tela de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 
 
 ## Link para o figma:
