@@ -73,46 +73,6 @@ class UserRequest(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
    
-
-    
-
-    
-class UserToken(BaseModel):
-    email: str
-    cargo:str
-    access_token:str
-    token_type:str
-    exp:int
-
-
-class SolicitacaoBase(BaseModel):
-    id: int
-    data: date
-    status: str
-    iduser: int
-
-    
-
-    model_config = ConfigDict(from_attributes=True)
-
-class SolicitacaoResponse(BaseModel):
-    id: int
-    data: date
-    status: str
-    iduser: int
-
- 
-    model_config = ConfigDict(from_attributes=True)
-
-class SolicitacaoRequest(BaseModel):
-    data: date
-    status: str
-    iduser: int
-    
-
-    model_config = ConfigDict(from_attributes=True)
-
-
 class MensalidadeBase(BaseModel):
     id: int
     valor: float
@@ -154,15 +114,10 @@ class MensalidadeBase(BaseModel):
         else:
             dtpagamento = datetime.now().date()
         return dtpagamento
-
-
-
-
-
-
-
-
+    
     model_config = ConfigDict(from_attributes=True)
+
+
 
 class MensalidadeResponse(BaseModel):
     id: int
