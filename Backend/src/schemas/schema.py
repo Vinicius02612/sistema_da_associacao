@@ -5,6 +5,18 @@ from validate_docbr import CPF
 from email_validator import validate_email, EmailNotValidError
 from services.utils import get_password_hash
 
+
+    
+class UserToken(BaseModel):
+    email: str
+    cargo:str
+    access_token:str
+    token_type:str
+    exp:int
+
+
+
+
 class UserResponse(BaseModel):
     id: int
     name: str
