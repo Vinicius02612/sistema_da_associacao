@@ -25,17 +25,10 @@ class User(Base):
     dtassociacao = Column(Date, nullable=False)
     _mensalidades = relationship("Mensalidade", backref="User", cascade="all, delete-orphan")
     _projetos = relationship("Projetos", backref="User", cascade="all, delete-orphan")
-    _solicitacoes = relationship("Solicitacao", backref="User", cascade="all, delete-orphan")
     created_at = Column(DateTime(timezone=True), server_default=func.now(),nullable=True)
     updated_at = Column( DateTime(timezone=True), onupdate=func.now(), nullable=True)
 
-class Solicitacao(Base):
-    __tablename__ = 'solicitacoes'
-    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    data = Column(Date, nullable=False)
-    status = Column(String, nullable=False)
-    iduser = Column(Integer, ForeignKey('user.id'), nullable=False)
-    _user = relationship("User", backref="solicitacoes")
+
 
 
 
