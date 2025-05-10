@@ -35,9 +35,13 @@ services:
       - "8080:8080"
     volumes:
       - ./Frontend:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=development
-  
+      - VITE_API_URL=http://localhost:8000
+      - VITE_DEFAULT_LINK_PREFIX=/algum-prefixo
+    depends_on:
+      - backend
 volumes:
   postgres_data:
   
