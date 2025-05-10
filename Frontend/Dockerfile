@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalando as dependências
-RUN npm install
+RUN npm install 
 
 # Copiando o restante dos arquivos do projeto
 COPY . .
@@ -20,12 +20,10 @@ ARG VITE_DEFAULT_LINK_PREFIX
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_DEFAULT_LINK_PREFIX=$VITE_DEFAULT_LINK_PREFIX
 
-# Executando o build do projeto
-RUN npm run dev
 
 
 
 # Expondo a porta 80
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "8080"]

@@ -115,9 +115,16 @@ npm run dev
 | Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
 | Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
-| Tela de Listagem de Projetos | Protótipo da Tela de lista de Projetos| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
-| Tela de Editar Projeto | Protótipo da Tela de Editar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
-| Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa|
+| Tela de Listagem de Projetos | Protótipo da Tela de lista de Projetos| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Editar Projeto | Protótipo da Tela de Editar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Mensalidades | Protótipo da Tela de Mensalidades| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Correção do fluxo | Correção do fluxo do Usuário ADM| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Criação do Módulo "Financeiro" | Alteração da tela de Mensalidades para gerenciamento do Financeiro| 24/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de listagem de Receitas | Criação da tela de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Editar e Adicionar Receitas | Fluxo para edição e adição de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de listagem de Despesas | Criação da tela de Despesas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Editar e Adicionar Despesas | Fluxo para edição e adição de Despesas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 
 ## Link para o figma:
 
