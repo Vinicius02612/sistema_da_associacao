@@ -6,11 +6,12 @@ from connection.database import Base
 
 # Tabela de associação para User e Projetos
 user_projetos = Table(
-    'user_projetos',
-    Base.metadata,
-    Column('user_id', Integer, ForeignKey('user.id')),
-    Column('projeto_id', Integer, ForeignKey('projetos.id'))
+    'user_projetos', Base.metadata,
+    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True),
+    Column('projetos_id', Integer, ForeignKey('projetos.id'), primary_key=True)
 )
+
+
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -22,8 +23,8 @@ class User(Base):
     quantidade = Column(Integer, nullable=False)
     cargo = Column(String, nullable=False)
     dtassociacao = Column(Date, nullable=False)
-    _mensalidades = relationship("Mensalidade", backref="User", cascade="all, delete-orphan")
-    _projetos = relationship("Projetos", backref="User", cascade="all, delete-orphan")
+    mensalidades = relationship("Mensalidade", back_populates="user" )
+    projetos = relationship("Projetos", back_populates="user",secondary=user_projetos)
     created_at = Column(DateTime(timezone=True), server_default=func.now(),nullable=True)
     updated_at = Column( DateTime(timezone=True), onupdate=func.now(), nullable=True)
 
@@ -38,9 +39,9 @@ class Mensalidade(Base):
     dtvencimento = Column(Date, nullable=False)
     dtpagamento = Column(Date, nullable=False)
     status = Column(String, nullable=False)
-    iduser = Column(Integer, ForeignKey('user.id'), nullable=False)
+    iduser = Column(Integer, ForeignKey('user.id'))
     # Relacionamento com User
-    _socio = relationship("User", backref="mensalidades")
+    user = relationship("User",back_populates="mensalidades")
 
 
 class Projetos(Base):
@@ -51,14 +52,31 @@ class Projetos(Base):
     dtfim = Column(Date, nullable=False)
     # Relacionamento com User
     iduser = Column(Integer, ForeignKey('user.id'), nullable=False)
-    _socios = relationship("User", secondary="user_projetos", backref="projetos")
-    
+    user = relationship("User", secondary=user_projetos, back_populates="projetos")
+
+
+""" class Relatorio(Base):
+    __tablename__ = 'relatorios'
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    data = Column(Date, nullable=False, server_default=func.now())
+    despesa = relationship("Despesas", back_populates="relatorio")
+    receita = relationship("Receitas", back_populates="relatorio") """
+
+class Relatorio(Base):
+    __tablename__ = 'relatorios'
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    data = Column(Date, nullable=False, server_default=func.now())
+    despesas = relationship("Despesas", back_populates="relatorio")
+    receitas = relationship("Receitas", back_populates="relatorio")
+
 class Despesas(Base):
     __tablename__ = 'despesas'
     id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Float)
     data = Column(Date, nullable=False)
     origem = Column(String, nullable=False)
+    relatorio_id = Column(Integer, ForeignKey('relatorios.id'))
+    relatorio = relationship("Relatorio", back_populates="despesas")
 
 
 
@@ -68,15 +86,9 @@ class Receitas(Base):
     valor = Column(Float)
     data = Column(Date, nullable=False)
     origem = Column(String, nullable=False)
+    relatorio_id = Column(Integer, ForeignKey('relatorios.id'))
+    relatorio = relationship("Relatorio", back_populates="receitas")
    
 
 
-class Relatorio(Base):
-    __tablename__ = 'relatorios'
-    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    data = Column(Date, nullable=False, server_default=func.now())
-    idDespesa = Column(Integer, ForeignKey('despesas.id'))
-    idReceita = Column(Integer, ForeignKey('receitas.id'))
-    _despesa = relationship("Despesas", backref="relatorios")
-    _receita = relationship("Receitas", backref="relatorios")
 
