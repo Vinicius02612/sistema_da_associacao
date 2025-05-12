@@ -50,10 +50,11 @@
 				<v-table>
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Número</th>
-							<th>Nome</th>
-							<th>Última Conexão</th>
+							<th>Titulo</th>
+							<th>CNPJ</th>
+							<th>Instituição/Empresa</th>
+							<th>Data de Inicio</th>
+							<th>Data de Término</th>
 							<th>Status</th>
 							<th>Ações</th>
 						</tr>
@@ -70,6 +71,7 @@
 								<template v-else>Não conectado</template>
 							</td>
 							<td>{{ item.name }}</td>
+							<td><DateLabel :date="new Date(item.fstConnection)" /> </td>
 							<td><DateLabel :date="new Date(item.lastConnection)" /> </td>
 							<td>
 								<v-chip
