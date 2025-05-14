@@ -1,6 +1,65 @@
 <template>
 	<v-container class="ma-0 fill-height align-start" max-width="100%">
 		<v-row class="mt-0 ml-0 mr-0" :gutter="1">
+			<v-col cols="12">
+				<div class="d-flex justify-space-between align-center mt-2">
+					<div class ="d-flex" style="width: 30%">
+						<v-text-field
+						class=" mr-5 bg-grey-lighten-4"
+						append-inner-icon="mdi-magnify"
+						label="Busca por nome ou CPF"
+						max-width="70%"
+						variant="outlined"
+						density="compact"
+						hide-details
+						/>
+						<v-btn append-icon="mdi-plus" color="primary" @click="addSocio" variant="elevated">
+							Adicionar sócio
+						</v-btn>
+					</div>
+					<div class="d-flex align-center">
+						<span>Filtros: </span>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							color="primary"
+							variant="outlined"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Com Atividade
+							</v-tooltip>
+							<v-icon>mdi-checkbox-marked-circle-outline</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							variant="outlined"
+							color="red"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Sem Atividade
+							</v-tooltip>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center border-lg border-opacity-75"
+							variant="outlined"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Todos
+							</v-tooltip>
+							<v-icon>mdi-list-box-outline</v-icon>
+						</v-btn>
+					</div>
+				</div>
+			</v-col>
 
 			<v-col cols="12">
 				<v-table>
