@@ -13,6 +13,12 @@ const routes = [
         component: () => import("@/views/Home.vue"),
         meta: { requiresAuth: true, preload: true },
       },
+			{
+				path: "/socios/adicionar",
+				name: "Adicionar Socio",
+				component: () => import("@/views/AddSocio.vue"),
+				meta: { requiresAuth: true, preload: true },
+			}
     ],
   },
 ];
