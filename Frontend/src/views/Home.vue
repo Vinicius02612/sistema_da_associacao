@@ -1,5 +1,5 @@
 <template>
-	<v-container class="ma-0 fill-height" max-width="100%">
+	<v-container class="ma-0 fill-height align-start" max-width="100%">
 		<v-row class="mt-0 ml-0 mr-0" :gutter="1">
 			<v-col cols="12">
 				<span class="ml-4 text-h5">Seus atalhos</span>
