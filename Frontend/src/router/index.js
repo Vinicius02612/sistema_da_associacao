@@ -39,6 +39,12 @@ const routes = [
 						component: () => import("@/views/Projetos.vue"),
 						meta: { requiresAuth: true, preload: true },
 					},
+					{
+						path: "adicionar",
+						name: "Adicionar Projeto",
+						component: () => import("@/views/AddProjeto.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
 				]
 			},
 			{
