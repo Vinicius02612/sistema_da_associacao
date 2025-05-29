@@ -11,8 +11,8 @@
 									<v-icon class="text-green">mdi-hand-coin-outline</v-icon>
 								</v-card-title>
 								<v-card-text>
-									<v-btn class="d-flex justify-space-between" variant="flat" width="100%" >
-										<h2>R$ 10.000,00</h2>
+									<v-btn class="d-flex justify-space-between" variant="flat" width="100%" to="/financas/receitas">
+										<h2>R$ 768.39</h2>
 										<v-icon size="x-large">mdi-arrow-right</v-icon>
 									</v-btn>
 								</v-card-text>
@@ -25,8 +25,8 @@
 									<v-icon class="text-red">mdi-hand-coin-outline</v-icon>
 								</v-card-title>
 								<v-card-text>
-									<v-btn class="d-flex justify-space-between" variant="flat" width="100%" >
-										<h2>R$ 1.000,00</h2>
+									<v-btn class="d-flex justify-space-between" variant="flat" width="100%" to="/financas/despesas">
+										<h2>R$ 457.89</h2>
 										<v-icon size="x-large">mdi-arrow-right</v-icon>
 									</v-btn>
 								</v-card-text>
@@ -203,7 +203,7 @@ export default {
 												DataNascimento: "1979-11-28",
 												Cargo: "Secretario",
 												Valor: 200.00,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Juliana Ferreira",
@@ -219,7 +219,7 @@ export default {
 												DataNascimento: "1988-01-19",
 												Cargo: "Presidente",
 												Valor: 95.0,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Patrícia Almeida",
@@ -235,7 +235,7 @@ export default {
 												DataNascimento: "1982-08-02",
 												Cargo: "Tesoureiro",
 												Valor: 300.0,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Bianca Ribeiro",
@@ -291,7 +291,7 @@ export default {
 												DataNascimento: "1993-07-30",
 												Cargo: "Presidente",
 												Valor: 180.35,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Eduardo Pinto",
@@ -315,7 +315,7 @@ export default {
 												DataNascimento: "1977-09-09",
 												Cargo: "Presidente",
 												Valor: 170.45,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Aline Barbosa",
@@ -331,7 +331,7 @@ export default {
 												DataNascimento: "1990-06-06",
 												Cargo: "Tesoureiro",
 												Valor: 88.8,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Simone Teixeira",
@@ -355,7 +355,7 @@ export default {
 												DataNascimento: "1978-03-27",
 												Cargo: "Tesoureiro",
 												Valor: 275.0,
-												EmAtraso: true
+												EmAtraso: false
 											},
 											{
 												Titular: "Gustavo Moreira",
