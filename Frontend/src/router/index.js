@@ -63,6 +63,12 @@ const routes = [
 						component: () => import("@/views/Receitas.vue"),
 						meta: { requiresAuth: true, preload: true },
 					},
+					{
+						path: "despesas",
+						name: "Despesas",
+						component: () => import("@/views/Despesas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
 				],
 			},
 			{
