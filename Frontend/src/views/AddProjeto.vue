@@ -54,6 +54,8 @@
 															v-model="data.dayI"
 															label="Dia"
 															type="number"
+															:min="1"
+															:max="31"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
@@ -65,6 +67,8 @@
 															v-model="data.monthI"
 															label="Mês"
 															type="number"
+															:min="1"
+															:max="12"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
@@ -76,6 +80,8 @@
 															v-model="data.yearI"
 															label="Ano"
 															type="number"
+															:min="1900"
+															:max="2100"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
@@ -92,6 +98,8 @@
 															v-model="data.dayF"
 															label="Dia"
 															type="number"
+															:min="1"
+															:max="31"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
@@ -103,6 +111,8 @@
 															v-model="data.monthF"
 															label="Mês"
 															type="number"
+															:min="1"
+															:max="12"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
@@ -114,6 +124,8 @@
 															v-model="data.yearF"
 															label="Ano"
 															type="number"
+															:min="1900"
+															:max="2100"
 															:rules="[ruleRequired]"
 															size="compact"
 														>
