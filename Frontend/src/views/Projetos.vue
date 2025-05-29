@@ -354,11 +354,44 @@ export default {
 				},
 		};
 	},
-
+	mounted(){
+		this.filterProjetos();
+	},
 	methods: {
 		greet() {
 			alert(this.message);
 		},
+		filterProjetos() {
+			switch (this.filters.selected) {
+				case "all":
+					this.projetosFiltered = this.projetos;
+					console.log(this.projetosFiltered);
+					break;
+				case "andamento":
+					this.projetosFiltered = this.projetos.filter((item) => item.status === "Em Andamento");
+					break;
+				case "canceled":
+					this.projetosFiltered = this.projetos.filter((item) => item.status === "Cancelado");
+					break;
+				case "complete":
+					this.projetosFiltered = this.projetos.filter((item) => item.status === "Finalizado");
+					break;
+				case "search":
+					this.projetosFiltered = this.projetos.filter((item) => 
+						item?.Titulo?.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+						item?.CNPJ?.includes(this.filters.search)
+
+					);
+					break;
+			}
+		},
+	},
+	watch: {
+		"filters.search"() {
+			console.log(this.filters.search);
+			this.filters.selected = "search";
+			this.filterProjetos();
+		}
 	},
 };
 </script>
