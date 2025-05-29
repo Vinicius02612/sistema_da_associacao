@@ -397,10 +397,39 @@ export default {
 				},
 		};
 	},
+	mounted(){
+		this.filterMesnalidades();
+	},
 	methods: {
 		greet() {
 			alert(this.message);
 		},
+		filterMesnalidades() {
+			switch (this.filters.selected) {
+				case "all":
+					this.MensalidadesFiltered = this.Mensalidades;
+					break;
+				case true:
+					this.MensalidadesFiltered = this.Mensalidades.filter((item) => item.EmAtraso);
+					break;
+				case false:
+					this.MensalidadesFiltered = this.Mensalidades.filter((item) => !item.EmAtraso);
+					break;
+				case "search":
+					this.MensalidadesFiltered = this.Mensalidades.filter((item) => 
+						item?.Titular?.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+						item?.CPF?.includes(this.filters.search)
+
+					);
+					break;
+			}
+		},
+	},
+	watch: {
+		"filters.search"() {
+			this.filters.selected = "search";
+			this.filterMesnalidades();
+		}
 	},
 };
 </script>
