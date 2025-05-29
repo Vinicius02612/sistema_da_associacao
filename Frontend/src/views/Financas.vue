@@ -33,6 +33,61 @@
 							</v-card>
 						</v-hover>
 					</div>
+					<div class="d-flex">
+						<div class="d-flex">
+							<v-text-field
+								class=" mr-5 bg-grey-lighten-4"
+								append-inner-icon="mdi-magnify"
+								label="Busca por nome ou CPF"
+								v-model="filters.search"
+								width="300"
+								variant="outlined"
+								density="compact"
+								hide-details
+								/>
+							<v-btn
+								class="ma-1 d-flex align-center"
+								color="primary"
+								variant="outlined"
+								@click="filters.selected = false, filterMesnalidades()"
+							>
+								<v-tooltip
+									activator="parent"
+									location="bottom"
+								>
+									Em Dia
+								</v-tooltip>
+								<v-icon>mdi-checkbox-marked-circle-outline</v-icon>
+							</v-btn>
+							<v-btn
+								class="ma-1 d-flex align-center"
+								variant="outlined"
+								color="red"
+								@click="filters.selected = true, filterMesnalidades()"
+							>
+								<v-tooltip
+									activator="parent"
+									location="bottom"
+								>
+									Atrasada
+								</v-tooltip>
+								<v-icon>mdi-close</v-icon>
+							</v-btn>
+							<v-btn
+								class="ma-1 d-flex align-center border-lg border-opacity-75"
+								variant="outlined"
+								@click="filters.selected = 'all', filterMesnalidades()"
+							>
+								<v-tooltip
+									activator="parent"
+									location="bottom"
+								>
+									Todos
+								</v-tooltip>
+								<v-icon>mdi-list-box-outline</v-icon>
+							</v-btn>
+						</div>
+					</div>
 				</div>
 			</v-col>
 
@@ -335,7 +390,11 @@ export default {
 												EmAtraso: true
 											}
 										],
-
+			MensalidadesFiltered: null,
+			filters: {
+				selected: "all",
+				search: "",
+				},
 		};
 	},
 	methods: {
