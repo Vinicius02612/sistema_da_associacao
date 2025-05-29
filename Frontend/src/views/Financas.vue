@@ -133,6 +133,208 @@ export default {
 	data() {
 		return {
 			message: 'Hello, Vue!',
+			Mensalidades: [
+											{
+												Titular: "Ana Souza",
+												CPF: "123.456.789-00",
+												DataNascimento: "1985-03-12",
+												Cargo: "Presidente",
+												Valor: 150.75,
+												EmAtraso: false
+											},
+											{
+												Titular: "Carlos Lima",
+												CPF: "234.567.890-11",
+												DataNascimento: "1979-11-28",
+												Cargo: "Secretario",
+												Valor: 200.00,
+												EmAtraso: true
+											},
+											{
+												Titular: "Juliana Ferreira",
+												CPF: "345.678.901-22",
+												DataNascimento: "1992-07-06",
+												Cargo: "Tesoureiro",
+												Valor: 120.5,
+												EmAtraso: false
+											},
+											{
+												Titular: "Marcos Dias",
+												CPF: "456.789.012-33",
+												DataNascimento: "1988-01-19",
+												Cargo: "Presidente",
+												Valor: 95.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Patrícia Almeida",
+												CPF: "567.890.123-44",
+												DataNascimento: "1990-05-23",
+												Cargo: "Secretario",
+												Valor: 175.25,
+												EmAtraso: false
+											},
+											{
+												Titular: "João Pedro",
+												CPF: "678.901.234-55",
+												DataNascimento: "1982-08-02",
+												Cargo: "Tesoureiro",
+												Valor: 300.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Bianca Ribeiro",
+												CPF: "789.012.345-66",
+												DataNascimento: "1995-09-10",
+												Cargo: "Presidente",
+												Valor: 130.6,
+												EmAtraso: false
+											},
+											{
+												Titular: "Fernando Nunes",
+												CPF: "890.123.456-77",
+												DataNascimento: "1975-12-14",
+												Cargo: "Secretario",
+												Valor: 110.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Camila Rocha",
+												CPF: "901.234.567-88",
+												DataNascimento: "1983-10-22",
+												Cargo: "Tesoureiro",
+												Valor: 140.9,
+												EmAtraso: false
+											},
+											{
+												Titular: "Diego Martins",
+												CPF: "012.345.678-99",
+												DataNascimento: "1991-06-17",
+												Cargo: "Presidente",
+												Valor: 160.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Sabrina Lopes",
+												CPF: "321.654.987-00",
+												DataNascimento: "1994-04-04",
+												Cargo: "Secretario",
+												Valor: 210.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Lucas Silva",
+												CPF: "432.765.098-11",
+												DataNascimento: "1987-03-03",
+												Cargo: "Tesoureiro",
+												Valor: 100.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Tatiane Moura",
+												CPF: "543.876.109-22",
+												DataNascimento: "1993-07-30",
+												Cargo: "Presidente",
+												Valor: 180.35,
+												EmAtraso: true
+											},
+											{
+												Titular: "Eduardo Pinto",
+												CPF: "654.987.210-33",
+												DataNascimento: "1980-01-11",
+												Cargo: "Secretario",
+												Valor: 99.9,
+												EmAtraso: false
+											},
+											{
+												Titular: "Renata Gomes",
+												CPF: "765.098.321-44",
+												DataNascimento: "1986-12-25",
+												Cargo: "Tesoureiro",
+												Valor: 250.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Marcelo Cunha",
+												CPF: "876.109.432-55",
+												DataNascimento: "1977-09-09",
+												Cargo: "Presidente",
+												Valor: 170.45,
+												EmAtraso: true
+											},
+											{
+												Titular: "Aline Barbosa",
+												CPF: "987.210.543-66",
+												DataNascimento: "1996-10-01",
+												Cargo: "Secretario",
+												Valor: 135.7,
+												EmAtraso: false
+											},
+											{
+												Titular: "Rodrigo Castro",
+												CPF: "098.321.654-77",
+												DataNascimento: "1990-06-06",
+												Cargo: "Tesoureiro",
+												Valor: 88.8,
+												EmAtraso: true
+											},
+											{
+												Titular: "Simone Teixeira",
+												CPF: "109.432.765-88",
+												DataNascimento: "1984-02-18",
+												Cargo: "Presidente",
+												Valor: 300.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Tiago Braga",
+												CPF: "210.543.876-99",
+												DataNascimento: "1989-05-12",
+												Cargo: "Secretario",
+												Valor: 145.5,
+												EmAtraso: false
+											},
+											{
+												Titular: "Verônica Farias",
+												CPF: "321.654.987-01",
+												DataNascimento: "1978-03-27",
+												Cargo: "Tesoureiro",
+												Valor: 275.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Gustavo Moreira",
+												CPF: "432.765.098-12",
+												DataNascimento: "1997-11-03",
+												Cargo: "Presidente",
+												Valor: 125.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Helena Pires",
+												CPF: "543.876.109-23",
+												DataNascimento: "1981-08-19",
+												Cargo: "Secretario",
+												Valor: 90.0,
+												EmAtraso: true
+											},
+											{
+												Titular: "Igor Fernandes",
+												CPF: "654.987.210-34",
+												DataNascimento: "1992-12-12",
+												Cargo: "Tesoureiro",
+												Valor: 100.0,
+												EmAtraso: false
+											},
+											{
+												Titular: "Larissa Carvalho",
+												CPF: "765.098.321-45",
+												DataNascimento: "1985-07-14",
+												Cargo: "Presidente",
+												Valor: 195.0,
+												EmAtraso: true
+											}
+										],
 
 		};
 	},
