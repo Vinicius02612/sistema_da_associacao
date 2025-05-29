@@ -2,7 +2,81 @@
 	<v-container class="ma-0 fill-height align-start" max-width="100%">
 		<v-row class="mt-0 ml-0 mr-0" :gutter="1">
 			<v-col cols="12">
-				
+				<div class="d-flex justify-space-between align-center mt-2">
+					<div class ="d-flex" style="width: 30%">
+						<v-text-field
+						class=" mr-5 bg-grey-lighten-4"
+						append-inner-icon="mdi-magnify"
+						label="Busca por nome ou CPF"
+						v-model="filters.search"
+						max-width="70%"
+						variant="outlined"
+						density="compact"
+						hide-details
+						/>
+						<v-btn append-icon="mdi-plus" color="primary" to="/projetos/adicionar" variant="elevated">
+							Novo projeto
+						</v-btn>
+					</div>
+					<div class="d-flex align-center">
+						<span>Filtros: </span>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							color="primary"
+							variant="outlined"
+							@click="filters.selected = 'andamento', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Em andamento
+							</v-tooltip>
+							<v-icon>mdi-play-speed</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							color="gray"
+							variant="outlined"
+							@click="filters.selected = 'complete', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Completos
+							</v-tooltip>
+							<v-icon>mdi-checkbox-marked-circle-outline</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							variant="outlined"
+							color="red"
+							@click="filters.selected = 'canceled', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Cancelados
+							</v-tooltip>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center border-lg border-opacity-75"
+							variant="outlined"
+							@click="filters.selected = 'all', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Todos
+							</v-tooltip>
+							<v-icon>mdi-list-box-outline</v-icon>
+						</v-btn>
+					</div>
+				</div>
 			</v-col>
 
 			<v-col cols="12">
@@ -273,6 +347,11 @@ export default {
 										status: "Finalizado"
 									}
 								],
+			projetosFiltered: null,
+			filters: {
+				selected: "all",
+				search: "",
+				},
 		};
 	},
 
@@ -280,9 +359,7 @@ export default {
 		greet() {
 			alert(this.message);
 		},
-		
 	},
-	
 };
 </script>
 
