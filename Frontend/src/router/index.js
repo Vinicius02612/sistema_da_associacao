@@ -13,6 +13,52 @@ const routes = [
         component: () => import("@/views/Home.vue"),
         meta: { requiresAuth: true, preload: true },
       },
+        {
+				path: "socios",
+				children: [
+					{
+						path: "",
+						name: "Sócios",
+						component: () => import("@/views/Socios.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "adicionar",
+						name: "Adicionar Socio",
+						component: () => import("@/views/AddSocio.vue"),
+						meta: { requiresAuth: true, preload: true },
+					}
+				]
+			},
+			{
+				path: "projetos",
+				children: [
+					{
+						path: "",
+						name: "Projetos",
+						component: () => import("@/views/Projetos.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "adicionar",
+						name: "Adicionar Projeto",
+						component: () => import("@/views/AddProjeto.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+				]
+			},
+			{
+				path: "financas",
+				name: "Finanças",
+				component: () => import("@/views/Financas.vue"),
+				meta: { requiresAuth: true, preload: true },
+			},
+			{
+				path: "/login",
+				name: "LoginView",
+				component: () => import("@/views/Login.vue"),
+				meta: { requiresAuth: false, preload: true },
+			},
     ],
   },
 ];

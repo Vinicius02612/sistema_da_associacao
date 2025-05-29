@@ -30,9 +30,11 @@ services:
       - database
 
   frontend:
-    build: ./Frontend
+    build:
+      context: ./Frontend
+      target: build
     ports:
-      - "8080:8080"
+    - "8080:8080"
     volumes:
       - ./Frontend:/app
       - /app/node_modules
