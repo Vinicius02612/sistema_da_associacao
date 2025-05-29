@@ -1,6 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "@/stores/user.store";
+import { patch } from "@/services/axios";
 
 const routes = [
   {
@@ -49,9 +50,20 @@ const routes = [
 			},
 			{
 				path: "financas",
-				name: "Finanças",
-				component: () => import("@/views/Financas.vue"),
-				meta: { requiresAuth: true, preload: true },
+				children: [
+					{
+						path: "",
+						name: "Finanças",
+						component: () => import("@/views/Financas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "receitas",
+						name: "Receitas",
+						component: () => import("@/views/Receitas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+				],
 			},
 			{
 				path: "/login",
