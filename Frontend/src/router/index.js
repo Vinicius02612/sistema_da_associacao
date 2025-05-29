@@ -14,6 +14,11 @@ const routes = [
         meta: { requiresAuth: true, preload: true },
       },
 			{
+				path: "/socios",
+				name: "Socios",
+				component: () => import("@/views/Socios.vue"),
+				meta: { requiresAuth: true, preload: true },
+			}
 				path: "/login",
 				name: "LoginView",
 				component: () => import("@/views/Login.vue"),
