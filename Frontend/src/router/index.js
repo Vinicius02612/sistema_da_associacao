@@ -31,6 +31,17 @@ const routes = [
 				]
 			},
 			{
+				path: "projetos",
+				children: [
+					{
+						path: "",
+						name: "Projetos",
+						component: () => import("@/views/Projetos.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+				]
+			},
+			{
 				path: "/login",
 				name: "LoginView",
 				component: () => import("@/views/Login.vue"),
