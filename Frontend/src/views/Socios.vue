@@ -8,12 +8,13 @@
 						class=" mr-5 bg-grey-lighten-4"
 						append-inner-icon="mdi-magnify"
 						label="Busca por nome ou CPF"
+						v-model="filters.search"
 						max-width="70%"
 						variant="outlined"
 						density="compact"
 						hide-details
 						/>
-						<v-btn append-icon="mdi-plus" color="primary" @click="addSocio" variant="elevated">
+						<v-btn append-icon="mdi-plus" color="primary" to="/socios/adicionar" variant="elevated">
 							Adicionar sócio
 						</v-btn>
 					</div>
@@ -23,6 +24,7 @@
 							class="ma-1 d-flex align-center"
 							color="primary"
 							variant="outlined"
+							@click="filters.selected = true, filterSocios()"
 						>
 							<v-tooltip
 								activator="parent"
@@ -36,6 +38,7 @@
 							class="ma-1 d-flex align-center"
 							variant="outlined"
 							color="red"
+							@click="filters.selected = false, filterSocios()"
 						>
 							<v-tooltip
 								activator="parent"
@@ -48,6 +51,7 @@
 						<v-btn
 							class="ma-1 d-flex align-center border-lg border-opacity-75"
 							variant="outlined"
+							@click="filters.selected = 'all', filterSocios()"
 						>
 							<v-tooltip
 								activator="parent"
@@ -76,7 +80,7 @@
 					</thead>
 					<tbody>
 						<tr
-							v-for="(item, index) in socios"
+							v-for="(item, index) in sociosFiltered"
 							:key="item.Id"
 							:style="{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f8f8' }"
 						>
@@ -383,12 +387,48 @@ export default {
 									Cargo: "Suplente",
 									PossuiAtividade: true
 								}
-							]
+							],
+			sociosFiltered: null,
+			filters: {
+				selected: "all",
+				search: "",
+				},
 		};
+	},
+	mounted(){
+		this.filterSocios();
 	},
 	methods: {
 		greet() {
 			alert(this.message);
+		},
+		filterSocios() {
+			switch (this.filters.selected) {
+				case "all":
+					this.sociosFiltered = this.socios;
+					console.log(this.sociosFiltered);
+					break;
+				case true:
+					this.sociosFiltered = this.socios.filter((item) => item.PossuiAtividade);
+					break;
+				case false:
+					this.sociosFiltered = this.socios.filter((item) => !item.PossuiAtividade);
+					break;
+				case "search":
+					this.sociosFiltered = this.socios.filter((item) => 
+						item?.Nome?.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+						item?.CPF?.includes(this.filters.search)
+
+					);
+					break;
+			}
+		},
+	},
+	watch: {
+		"filters.search"() {
+			console.log(this.filters.search);
+			this.filters.selected = "search";
+			this.filterSocios();
 		}
 	},
 };
