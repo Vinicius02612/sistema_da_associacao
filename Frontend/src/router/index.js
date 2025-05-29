@@ -48,6 +48,12 @@ const routes = [
 				]
 			},
 			{
+				path: "financas",
+				name: "Financas",
+				component: () => import("@/views/Financas.vue"),
+				meta: { requiresAuth: true, preload: true },
+			},
+			{
 				path: "/login",
 				name: "LoginView",
 				component: () => import("@/views/Login.vue"),
