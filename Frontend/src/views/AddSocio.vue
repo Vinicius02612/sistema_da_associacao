@@ -4,7 +4,7 @@
 			<v-col cols="12">
 				<v-card class="align-center justify-center">
 					<v-card-title class="align-start justify-start">
-						Detalhes do Sócio
+						Adicionar Sócio
 					</v-card-title>
 					<v-card-text>
 							<div class="d-flex align-center justify-center" style="width: 100%;">
@@ -76,13 +76,55 @@
 											
 											<div class="ml-3" style="width: 50%;">
 												<span>Data de nascimento</span>
-												<v-date-input
-													clearable
-													v-model="data.birthDate"
-													variant="outlined"></v-date-input>
+												<v-row dense>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.day"
+															label="Dia"
+															type="number"
+															:min="1"
+															:max="31"
+															:rules="[ruleRequired]"
+															size="compact"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.month"
+															label="Mês"
+															type="number"
+															:min="1"
+															:max="12"
+															:rules="[ruleRequired]"
+															size="compact"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.year"
+															label="Ano"
+															type="number"
+															:min="1900"
+															:max="2100"
+															:rules="[ruleRequired]"
+															size="compact"
+														>
+														</v-text-field>
+													</v-col>
+												</v-row>
 											</div>
 										</div>
 
+									</v-col>
+									<v-col class="d-flex align-center justify-center" cols="8">
+										<v-btn color="primary" class="ma-2" @click="greet" >
+											Adicionar
+										</v-btn>
 									</v-col>
 								</v-row>
 
@@ -97,14 +139,12 @@
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
-import { VDateInput } from 'vuetify/labs/VDateInput'
 import { ruleRequired, ruleEmail, ruleFullName } from '@/helpers/RulesHelper';
 
 export default {
 	name: 'Socios',
 	components: {
 		DateLabel,
-		VDateInput
 	},
 	data() {
 		return {
@@ -113,6 +153,9 @@ export default {
 				name: '',
 				email: '',
 				cpf: '',
+				day: '',
+				month: '',
+				year: '',
 				birthDate: '',
 				cargo: '',
 				familia: '',
