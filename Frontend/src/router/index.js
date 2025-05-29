@@ -18,7 +18,7 @@ const routes = [
 				children: [
 					{
 						path: "",
-						name: "Socios",
+						name: "Sócios",
 						component: () => import("@/views/Socios.vue"),
 						meta: { requiresAuth: true, preload: true },
 					},
@@ -49,7 +49,7 @@ const routes = [
 			},
 			{
 				path: "financas",
-				name: "Financas",
+				name: "Finanças",
 				component: () => import("@/views/Financas.vue"),
 				meta: { requiresAuth: true, preload: true },
 			},
