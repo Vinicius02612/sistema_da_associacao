@@ -127,6 +127,7 @@ npm run dev
 | Editar e Adicionar Despesas | Fluxo para edição e adição de Despesas | 25/04/2025 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Tela de Finanças | Tabela de Mensalidades | 28/05/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Gerenciar Finanças | Fluxo para adição e edição de Mensalidades | 10/06/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Vincular Sòcios | Fluxo para vincular sócios a um projeto | 10/06/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 
 
 ## Link para o figma:
