@@ -125,7 +125,9 @@ npm run dev
 | Editar e Adicionar Receitas | Fluxo para edição e adição de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Tela de listagem de Despesas | Criação da tela de Despesas | 25/04/2025 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 | Editar e Adicionar Despesas | Fluxo para edição e adição de Despesas | 25/04/2025 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
-| Tela de Mensalidades | Fluxo para edição e adição de Mensalidades | 28/05/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Finanças | Tabela de Mensalidades | 28/05/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Gerenciar Finanças | Fluxo para adição e edição de Mensalidades | 10/06/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+
 
 ## Link para o figma:
 
