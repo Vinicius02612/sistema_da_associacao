@@ -25,6 +25,7 @@
 							:color="isHovering ? 'primary' : ''"
 							size="x-large"
 							stacked
+							to="/financas"
 						>
 							Mensalidades
 						</v-btn>

@@ -7,7 +7,7 @@
 						<v-text-field
 						class=" mr-5 bg-grey-lighten-4"
 						append-inner-icon="mdi-magnify"
-						label="Busca por nome ou CPF"
+						label="Busca por Título ou CNPJ"
 						v-model="filters.search"
 						max-width="70%"
 						variant="outlined"

@@ -31,3 +31,22 @@ def post_mensalidades(mensalidade_request: MensalidadeRequest, db: Session = Dep
 
     return new_mensalidade
 
+"""Listar mensalidade de um usuário fazendo busca pelo cpf e nome"""
+@router.get("/user", response_model=List[MensalidadeResponse])
+def get_mensalidade_user(cpf: str, nome: str, db: Session = Depends(get_db),permissions: User = Depends(socio_permission)) -> List[Mensalidade]:
+    if permissions.cargo != "SOCIO":
+        raise HTTPException(status_code=403, detail="Usuário não autorizado")
+    mensalidades = db.query(Mensalidade).filter(Mensalidade.user.has(User.cpf == cpf)).filter(Mensalidade.user.has(User.name == nome)).all()
+    if not mensalidades:
+        raise HTTPException(status_code=404, detail="Não há mensalidades cadastradas")
+    return mensalidades
+
+"""Listar mensalidade de um usuário de um usuário logado"""
+@router.get("/user_logado", response_model=List[MensalidadeResponse])
+def get_mensalidade_user_logado(db: Session = Depends(get_db),permissions: User = Depends(socio_permission)) -> List[Mensalidade]:
+    if permissions.cargo != "SOCIO":
+        raise HTTPException(status_code=403, detail="Usuário não autorizado")
+    mensalidades = db.query(Mensalidade).filter(Mensalidade.user.has(User.id == permissions.id)).all()
+    if not mensalidades:
+        raise HTTPException(status_code=404, detail="Não há mensalidades cadastradas")
+    return mensalidades
