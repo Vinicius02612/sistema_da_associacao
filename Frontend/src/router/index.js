@@ -1,6 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "@/stores/user.store";
+import { patch } from "@/services/axios";
 
 const routes = [
   {
@@ -13,6 +14,63 @@ const routes = [
         component: () => import("@/views/Home.vue"),
         meta: { requiresAuth: true, preload: true },
       },
+        {
+				path: "socios",
+				children: [
+					{
+						path: "",
+						name: "Sócios",
+						component: () => import("@/views/Socios.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "adicionar",
+						name: "Adicionar Socio",
+						component: () => import("@/views/AddSocio.vue"),
+						meta: { requiresAuth: true, preload: true },
+					}
+				]
+			},
+			{
+				path: "projetos",
+				children: [
+					{
+						path: "",
+						name: "Projetos",
+						component: () => import("@/views/Projetos.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "adicionar",
+						name: "Adicionar Projeto",
+						component: () => import("@/views/AddProjeto.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+				]
+			},
+			{
+				path: "financas",
+				children: [
+					{
+						path: "",
+						name: "Finanças",
+						component: () => import("@/views/Financas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "receitas",
+						name: "Receitas",
+						component: () => import("@/views/Receitas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+					{
+						path: "despesas",
+						name: "Despesas",
+						component: () => import("@/views/Despesas.vue"),
+						meta: { requiresAuth: true, preload: true },
+					},
+				],
+			},
 			{
 				path: "/login",
 				name: "LoginView",

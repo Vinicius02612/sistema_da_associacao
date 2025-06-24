@@ -1,16 +1,25 @@
- 1183  alembic init alembic
- 1184  alembic revision --autogenerate -m "Nova Migracao"
- 1185  alembic upgrade head
- 1186  uvicorn main:app --reload
+
+Comando para rodar migrações no banco de dados
+inicializar aquivos migrações
+alembic init alembic 
+
+rodar migrações
+alembic revision --autogenerate -m "Nova Migracao"
+
+efetivar migrações no banco de dados
+alembic upgrade head
 
 
- 1191  alembic revision --autogenerate -m "Nova Migracao"
- 1192  alembic upgrade head
- 1193  alembic revision --autogenerate -m "Nova Migracao"
- 1195  alembic revision --autogenerate -m "Nova Migracao"
- 1196  alembic upgrade head
- 1197  uvicorn main:app --reload
- 1199  uvicorn main:app --reload
+Comando para entrar no container docker modo terminal
+docker compose exec (nome_do_container) bash
+docker compose exec backend bash
+sair do modo terminal: exit
+
+Acessar o container banco de dados
+docker ps -listar os container
+
+entrar no banco de dados
+docker exec -it 6b7229086ae6 psql -U postgres -d db_associates
 
 
 SQL COMMANDS

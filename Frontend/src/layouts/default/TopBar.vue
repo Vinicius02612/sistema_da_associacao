@@ -1,11 +1,10 @@
 <template>
-	<v-app-bar color="white" elevation="0" height="64">
-		<v-img src="@/assets/LogoZapServerHorizontal.svg" aspect-ratio="1/1" max-width="190px" max-height="50px"
-			class="ml-6">
-			<v-btn width="100%" height="100%" @click="goToHome" variant="plain">
-                <v-tooltip activator="parent" location="end">Home</v-tooltip>
-            </v-btn>
-		</v-img>
+	<v-app-bar color="white" elevation="1" height="64" z-index="0">
+		<div class="ma-2" style="width: 14%; height: 100%; display: flex; align-items: center;">
+			<h3>
+				{{ this.$route.name }}
+			</h3>
+		</div>
 		<v-spacer></v-spacer>
 
 		<v-divider class="ms-3 border-opacity-90" inset vertical></v-divider>
@@ -13,7 +12,8 @@
 		<v-menu location="bottom" transition="slide-y-transition">
 			<template v-slot:activator="{ props }">
 				<v-btn variant="text" v-bind="props" class="pa-2" height="64">
-					<span class="mr-2">{{ user.name }}</span>
+					<!-- <span class="mr-2">{{ user.name }}</span> -->
+					 <span>Aleff </span>
 					<v-avatar
 						:image="user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=9CBFBB&color=fff`"></v-avatar>
 				</v-btn>

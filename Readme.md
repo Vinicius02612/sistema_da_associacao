@@ -43,8 +43,8 @@ Python 3.10+ (caso deseje rodar o backend sem Docker)
 ## Clonando o Repositório
 
 ```
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/Vinicius02612/sistema_da_associacao.git
+cd sistema_da_associacao
 ```
 
 ## Rodando com Docker
@@ -105,14 +105,34 @@ npm run dev
 |-- README.md  # Este arquivo
 ```
 
+
 # Tabela de Versões (Implementação do Figma)
 
 | Titulo       | Descrição                       | Data           | Responsável                                        | 
 | :---         |     :---:                       | :---           |      ---:                                          |
-| Tela login   | Criar figma da tela de login    |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
-| Tela Adminstrador   | Criar figma tela socio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela login   | Protótipo da tela de Login  e Cadastro |  07/04/2025    | Mayra Caetano[GitHub:](https://github.comMay-Raa)  |
+| Tela Adminstrador   | Protótipo da tela Sócio   |  07/04/2025    | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela listagem de Sócios | Tabela com a lista de Sócios cadastrados| 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela Adicionar Sócio | Protótipo da tela de adicionar Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa) |
+| Tela de Editar Sócio | Prótipo da tela de Sócio | 08/04/2025 | Mayra Caetano[GitHub:](https://github.com/May-Raa)
+| Tela de Listagem de Projetos | Protótipo da Tela de lista de Projetos| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Editar Projeto | Protótipo da Tela de Editar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Adicionar Projeto | Protótipo da Tela de Adicionar Projeto| 09/03/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Mensalidades | Protótipo da Tela de Mensalidades| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Correção do fluxo | Correção do fluxo do Usuário ADM| 23/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Criação do Módulo "Financeiro" | Alteração da tela de Mensalidades para gerenciamento do Financeiro| 24/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de listagem de Receitas | Criação da tela de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Editar e Adicionar Receitas | Fluxo para edição e adição de Receitas | 25/04/2024 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de listagem de Despesas | Criação da tela de Despesas | 25/04/2025 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Editar e Adicionar Despesas | Fluxo para edição e adição de Despesas | 25/04/2025 |  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Tela de Finanças | Tabela de Mensalidades | 28/05/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Gerenciar Finanças | Fluxo para adição e edição de Mensalidades | 10/06/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
+| Vincular Sòcios | Fluxo para vincular sócios a um projeto | 10/06/2025|  Mayra Caetano[GitHub:](https://github.com/May-Raa).|
 
 
+## Link para o figma:
+
+Figma Sistema Associação [figma:](https://www.figma.com/design/qz8cxCq66quwiOBnGCdRZ0/Sistema-Associa%C3%A7%C3%A3o?node-id=558-16&p=f&t=7RM1VE3pdhgqcce0-0)
 
 
 # Contribuição

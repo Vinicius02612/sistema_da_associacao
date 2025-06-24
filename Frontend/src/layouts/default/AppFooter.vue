@@ -1,7 +1,17 @@
 <template>
-  <v-span app class="d-flex align-center">
-    <small>{{ APP_VERSION }}</small>
-  </v-span>
+  <div class="d-flex  justify-center">
+		<v-footer class="d-flex justify-space-between align-center" height="55" color="white" app>
+			<div class="d-flex justify-center">
+				<span class="font-weight-bold">Copyright © 2024 | AQBA. </span>
+				<span>Todos os direitos reservados.</span>
+			</div>
+
+			<div class="d-flex flex-column align-center justify-center">
+				<span class="font-weight-bold">Versão:</span>
+				<span>{{ APP_VERSION }}</span>
+			</div>
+		</v-footer>
+	</div>
 </template>
 
 <script>
@@ -13,11 +23,9 @@
         APP_VERSION,
       }
     },
-
-    // methods: {
-    //   goToTerms() {
-    //     window.location = 'https://site.zapghub.app/terms_and_privacy.pdf'
-    //   }
-    // }
   }
 </script>
+
+<style>
+	
+</style>

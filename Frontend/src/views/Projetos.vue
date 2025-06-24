@@ -2,58 +2,85 @@
 	<v-container class="ma-0 fill-height align-start" max-width="100%">
 		<v-row class="mt-0 ml-0 mr-0" :gutter="1">
 			<v-col cols="12">
-				<span class="ml-4 text-h5">Seus atalhos</span>
-				<div>
-					<v-hover v-slot:default="{ isHovering, props }">
-						<v-btn
-							v-bind="props"
-							class="ma-4 text-h6"
-							prepend-icon="mdi-account-plus"
-							:color="isHovering ? 'primary' : ''"
-							size="x-large"
-							stacked
-							to="/socios/adicionar"
-						>
-							Adicionar sócio
+				<div class="d-flex justify-space-between align-center mt-2">
+					<div class ="d-flex" style="width: 30%">
+						<v-text-field
+						class=" mr-5 bg-grey-lighten-4"
+						append-inner-icon="mdi-magnify"
+						label="Busca por Título ou CNPJ"
+						v-model="filters.search"
+						max-width="70%"
+						variant="outlined"
+						density="compact"
+						hide-details
+						/>
+						<v-btn append-icon="mdi-plus" color="primary" to="/projetos/adicionar" variant="elevated">
+							Novo projeto
 						</v-btn>
-					</v-hover>
-					<v-hover v-slot:default="{ isHovering, props }">
+					</div>
+					<div class="d-flex align-center">
+						<span>Filtros: </span>
 						<v-btn
-							v-bind="props"
-							class="ma-4 text-h6"
-							prepend-icon="mdi-calendar-month"
-							:color="isHovering ? 'primary' : ''"
-							size="x-large"
-							stacked
-							to="/financas"
+							class="ma-1 d-flex align-center"
+							color="primary"
+							variant="outlined"
+							@click="filters.selected = 'andamento', filterProjetos()"
 						>
-							Mensalidades
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Em andamento
+							</v-tooltip>
+							<v-icon>mdi-play-speed</v-icon>
 						</v-btn>
-					</v-hover>
-					<v-hover v-slot:default="{ isHovering, props }">
 						<v-btn
-							v-bind="props"
-							class="ma-4 text-h6"
-							prepend-icon="mdi-plus-circle-outline"
-							:color="isHovering ? 'primary' : ''"
-							size="x-large"
-							stacked
-							to="/projetos/adicionar"
+							class="ma-1 d-flex align-center"
+							color="gray"
+							variant="outlined"
+							@click="filters.selected = 'complete', filterProjetos()"
 						>
-							Novo Projeto
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Completos
+							</v-tooltip>
+							<v-icon>mdi-checkbox-marked-circle-outline</v-icon>
 						</v-btn>
-					</v-hover>
+						<v-btn
+							class="ma-1 d-flex align-center"
+							variant="outlined"
+							color="red"
+							@click="filters.selected = 'canceled', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Cancelados
+							</v-tooltip>
+							<v-icon>mdi-close</v-icon>
+						</v-btn>
+						<v-btn
+							class="ma-1 d-flex align-center border-lg border-opacity-75"
+							variant="outlined"
+							@click="filters.selected = 'all', filterProjetos()"
+						>
+							<v-tooltip
+								activator="parent"
+								location="bottom"
+							>
+								Todos
+							</v-tooltip>
+							<v-icon>mdi-list-box-outline</v-icon>
+						</v-btn>
+					</div>
 				</div>
 			</v-col>
 
 			<v-col cols="12">
-				<v-card>
-					<v-card-title>
-						Projetos em andamento
-					</v-card-title>
-					<v-card-text>
-
-						<v-table>
+				<v-table>
 							<thead>
 								<tr>
 									<th>Titulo</th>
@@ -67,63 +94,62 @@
 							</thead>
 							<tbody>
 								<tr
-									v-for="(item, index) in projetosFiltered"
-									:key="item.id"
-									:style="{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f8f8' }"
+								v-for="(item, index) in projetosFiltered"
+								:key="item.id"
+								:style="{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f8f8' }"
 								>
-									<td>{{ item.Titulo }}</td>
-									<td>{{ item.CNPJ }}</td>
-									<td>{{ item.InstituicaoEmpresa }}</td>
-									<td><DateLabel :date="new Date(item.dataInicio)" /> </td>
-									<td><DateLabel :date="new Date(item.dataFim)" /> </td>
-									<td>
-										<v-chip
-										:color="item.status === 'Finalizado' ? 'gray' : item.status === 'Cancelado' ? 'red' : 'green'"
-										class="chip-size d-flex justify-center"
-										variant="outlined"
+								<td>{{ item.Titulo }}</td>
+								<td>{{ item.CNPJ }}</td>
+								<td>{{ item.InstituicaoEmpresa }}</td>
+								<td><DateLabel :date="new Date(item.dataInicio)" /> </td>
+								<td><DateLabel :date="new Date(item.dataFim)" /> </td>
+								<td>
+									<v-chip
+									:color="item.status === 'Finalizado' ? 'gray' : item.status === 'Cancelado' ? 'red' : 'green'"
+									class="chip-size d-flex justify-center"
+									variant="outlined"
+									>
+									{{ item.status }}
+								</v-chip>
+							</td>
+							<td>
+								<v-btn-group
+									variant="outlined"
+									divided
+									rounded="lg"
+									class="custom-btn-group d-flex align-center"
+								>
+									<v-btn
+										width="32"
+										height="32"
+									>
+										<v-tooltip
+											activator="parent"
+											location="bottom"
 										>
-										{{ item.status }}
-									</v-chip>
-									</td>
-									<td>
-										<v-btn-group
-											variant="outlined"
-											divided
-											rounded="lg"
-											class="custom-btn-group d-flex align-center"
+											Editar
+										</v-tooltip>
+										<v-icon size="x-large">mdi-pencil</v-icon>
+									</v-btn>
+									<v-btn
+										width="32"
+										height="32"
+									>
+										<v-tooltip
+											activator="parent"
+											location="bottom"
 										>
-											<v-btn
-												width="32"
-												height="32"
-											>
-												<v-tooltip
-													activator="parent"
-													location="bottom"
-												>
-													Editar
-												</v-tooltip>
-												<v-icon size="x-large">mdi-pencil</v-icon>
-											</v-btn>
-											<v-btn
-												width="32"
-												height="32"
-											>
-												<v-tooltip
-													activator="parent"
-													location="bottom"
-												>
-													Apagar
-												</v-tooltip>
-												<v-icon size="x-large">mdi-trash-can-outline</v-icon>
-											</v-btn>
-										</v-btn-group>
-									</td>
-								</tr>
-							</tbody>
-						</v-table>
-					</v-card-text>
-				</v-card>
+											Apagar
+										</v-tooltip>
+										<v-icon size="x-large">mdi-trash-can-outline</v-icon>
+									</v-btn>
+								</v-btn-group>
+						</td>
+					</tr>
+				</tbody>
+			</v-table>
 			</v-col>
+			
 		</v-row>
 	</v-container>	
 </template>
@@ -323,7 +349,7 @@ export default {
 								],
 			projetosFiltered: null,
 			filters: {
-				selected: "andamento",
+				selected: "all",
 				search: "",
 				},
 		};
@@ -337,11 +363,35 @@ export default {
 		},
 		filterProjetos() {
 			switch (this.filters.selected) {
+				case "all":
+					this.projetosFiltered = this.projetos;
+					console.log(this.projetosFiltered);
+					break;
 				case "andamento":
 					this.projetosFiltered = this.projetos.filter((item) => item.status === "Em Andamento");
 					break;
+				case "canceled":
+					this.projetosFiltered = this.projetos.filter((item) => item.status === "Cancelado");
+					break;
+				case "complete":
+					this.projetosFiltered = this.projetos.filter((item) => item.status === "Finalizado");
+					break;
+				case "search":
+					this.projetosFiltered = this.projetos.filter((item) => 
+						item?.Titulo?.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+						item?.CNPJ?.includes(this.filters.search)
+
+					);
+					break;
 			}
 		},
+	},
+	watch: {
+		"filters.search"() {
+			console.log(this.filters.search);
+			this.filters.selected = "search";
+			this.filterProjetos();
+		}
 	},
 };
 </script>
