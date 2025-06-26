@@ -22,7 +22,7 @@
 										<v-text-field
 											variant="outlined"
 											v-model="data.cpf"
-											:rules="[ruleRequired, ruleFullName]"
+											:rules="[ruleRequired]"
 											size="compact"
 										></v-text-field>
 										
@@ -122,7 +122,7 @@
 
 									</v-col>
 									<v-col class="d-flex align-center justify-center" cols="8">
-										<v-btn color="primary" class="ma-2" @click="greet" >
+										<v-btn color="primary" class="ma-2" @click="addSocios" >
 											Adicionar
 										</v-btn>
 									</v-col>
@@ -140,7 +140,7 @@
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
 import { ruleRequired, ruleEmail, ruleFullName } from '@/helpers/RulesHelper';
-
+import axios from 'axios';
 export default {
 	name: 'Socios',
 	components: {
@@ -184,8 +184,48 @@ export default {
 		};
 	},
 	methods: {
-		greet() {
-			alert(this.message);
+		addSocios() {
+			try{
+				const data_modificada = `${this.data.year}-${String(this.data.month).padStart(2, '0')}-${String(this.data.day).padStart(2, '0')}`;
+				//pegar data atual no formato YYYY-MM-DD
+				console.log("Data modificada:", data_modificada);
+				const data_nascimento = `${this.data.year}-${String(this.data.month).padStart(2, '0')}-${String(this.data.day).padStart(2, '0')}`;
+				const hoje = new Date();
+				const dtassociacao = hoje.toISOString().split('T')[0]; // formato YYYY-MM-DD
+
+				const payload = {
+					name: this.data.name,
+					email: this.data.email,
+					cpf: this.data.cpf,
+					data_nascimento: data_nascimento,
+					senha: this.data.cpf, // ou outro campo de senha, se houver
+					quantidade: Number(this.data.quantidade) || 1, // valor padrão 1 se não informado
+					cargo: this.data.cargo,
+					dtassociacao: dtassociacao
+				};
+
+				console.log(payload);
+				axios.post('http://localhost:8000/users', payload, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				})
+				.then(response => {
+					if (response.status === 200) {
+						alert('Sócio adicionado com sucesso!');
+						console.log(response.data);
+						this.$router.push("/home");
+					} else {
+						alert('Erro ao adicionar sócio.');
+					}
+				})
+				.catch(error => {
+					console.error('Erro:', error);
+					alert('Erro ao adicionar sócio.');
+				});
+			} catch (error) {
+				console.error('Erro:', error);
+			}
 		}
 	},
 };
