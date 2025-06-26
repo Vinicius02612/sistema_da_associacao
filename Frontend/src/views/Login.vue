@@ -39,7 +39,7 @@
 												variant="outlined"
 												density="compact"
 												:rules="[ruleRequired, ruleEmail]"
-												v-model="email"
+												v-model="username"
 												type="email"
 												@keypress.space.prevent
 												@keyup.enter="login"
@@ -101,8 +101,9 @@
   import { useUserStore } from '@/stores/user.store';
   import { ruleEmail, rulePassword, ruleRequired } from '@/helpers/RulesHelper';
   import { goToGoogleLogin} from '@/services/auth.service';
-	import AuthService from '@/controllers/authController';
-	import statusCode from '@/helpers/statusCode';
+  import AuthService from '@/controllers/authController';
+  import {axios} from 'axios';
+  import statusCode from '@/helpers/statusCode';
 
   const userStore = useUserStore();
 	const authService = new AuthService();
@@ -110,17 +111,17 @@
   export default {
     data() {
       return {
-				visible: false,
+		visible: false,
         loading: false,
         loginMailSent: false,
-        email: "",
-				password: "",
+        username: "",
+		password: "",
         timer: 0,
-				alert: false,
-				valid: false,
-				ruleEmail,
-				rulePassword,
-				ruleRequired,
+		alert: false,
+		valid: false,
+		ruleEmail,
+		rulePassword,
+		ruleRequired,
       }
     },
 
@@ -129,45 +130,35 @@
         goToGoogleLogin();
       },
 
-			async login() {
-				try {
-					this.valid = await this.$refs.login.validate();
-					if (!this.valid.valid) {
-						const error = new Error("Fields");
-						error.status = 400;
-						error.statusText = "Fields";
-						throw error;
-					};
-					
-					this.loading = true;
+		async login() {
+			try{
+				const params = new URLSearchParams();
+				params.append("username", this.email);
+				params.append("password", this.password);
 
-					const bodyLogin = { 
-						email: this.email,
-						password:this.password 
-					};
+				const response = await axios.post('http://localhost:8000/login/token', params,
+					{
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+						},
+					}
+				);
 
-					const response = await authService.login(bodyLogin).then( async (res) => {
-						return res;
-					});
-
-					statusCode.toastSuccess({
-						status: response.status,
-						statusText: "loginSuccess",
-					});
-				  
-					await authService.setUserLocalStorage(response.body)
-					window.location.href = "/";
-					
-				}catch (error) {
-					statusCode.toastError(error);
-				}finally{	
-					this.loading = false;
+				if(response.status === statusCode.OK) {
+					console.log(response.data);
+					this.$router.push("/home");
+				} else {
+					this.alert = true;
+					this.alert("não foi possivel acessar a api");
 				}
+			}catch(error){
+				this.alert("não foi possivel acessar a api");
+			}
     	},
 			
-			resetPassword(){
-				this.$router.push("/forgot-password");
-			},
+		resetPassword(){
+			this.$router.push("/forgot-password");
+		},
     },
 
     computed: {
