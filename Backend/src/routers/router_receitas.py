@@ -14,10 +14,8 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 @router.get("/", response_model=List[ReceitasResponse])
-def get_receitas(db:Session = Depends(get_db), current_user: User = Depends(president_permission)) -> List[Receitas]:
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-  
+def get_receitas(db:Session = Depends(get_db)) -> List[Receitas]:
+
     receitas = db.query(Receitas).all()
     if not receitas:
         raise HTTPException(status_code=404, detail="Não há receitas cadastradas")
@@ -25,9 +23,7 @@ def get_receitas(db:Session = Depends(get_db), current_user: User = Depends(pres
 
 
 @router.post("/", response_model=ReceitasResponse, status_code=201)
-def post_receitas(receita_request: ReceitasRequest, db: Session = Depends(get_db), current_user: User = Depends(president_permission)) -> List[Receitas]:
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuario não permitido")
+def post_receitas(receita_request: ReceitasRequest, db: Session = Depends(get_db)) -> List[Receitas]:
     new_receita = Receitas(
         **receita_request.model_dump()
     )
@@ -38,10 +34,8 @@ def post_receitas(receita_request: ReceitasRequest, db: Session = Depends(get_db
     return new_receita
 
 @router.put("/{id}", response_model=ReceitasResponse)
-def receitas_update(id:int, receita_request: ReceitasRequest, db: Session = Depends(get_db), current_user: User = Depends(president_permission)) -> Receitas:
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-      
+def receitas_update(id:int, receita_request: ReceitasRequest, db: Session = Depends(get_db)) -> Receitas:
+
     receita = db.query(Receitas).filter(Receitas.id == id).first()
     if not receita:
         raise HTTPException(status_code=404, detail="Receita não encontrada")
@@ -53,9 +47,8 @@ def receitas_update(id:int, receita_request: ReceitasRequest, db: Session = Depe
     return receita
 
 @router.delete("/{id}", response_model=ReceitasResponse)
-def receitas_delete(id:int, db: Session = Depends(get_db),current_user: User = Depends(president_permission)) -> Receitas:
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
+def receitas_delete(id:int, db: Session = Depends(get_db)) -> Receitas:
+
     receita = db.query(Receitas).filter(Receitas.id == id).first()
     if not receita:
         raise HTTPException(status_code=404, detail="Receita não encontrada")
