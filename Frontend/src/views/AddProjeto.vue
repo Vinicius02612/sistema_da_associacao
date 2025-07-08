@@ -17,31 +17,10 @@
 										:rules="[ruleRequired, ruleFullName]"
 										size="compact"
 										></v-text-field>
-										
-										<span>CNPJ</span>
-										<v-text-field
-											variant="outlined"
-											v-model="data.cnpj"
-											:rules="[ruleRequired, ruleFullName]"
-											size="compact"
-										></v-text-field>
-										
-										<span>Descrição do projeto</span>
-										<v-textarea
-											v-model="data.descricao"
-											variant="outlined"
-											:rules="[ruleRequired]"
-										></v-textarea>
-
 									</v-col>
 
 									<v-col cols="4">
-										<span>Instituicao/Empresa	</span>
-										<v-text-field
-											variant="outlined"
-											v-model="data.empresa"
-											:rules="[ruleRequired, ruleEmail]"
-										></v-text-field>
+										
 
 										<div class="d-flex align-center justify-center" style="width: 100%;">
 
@@ -146,7 +125,7 @@
 
 									</v-col>
 									<v-col class="d-flex align-center justify-center" cols="8">
-										<v-btn color="primary" class="ma-2" @click="greet" >
+										<v-btn color="primary" class="ma-2" @click="addProjeto" >
 											Adicionar
 										</v-btn>
 									</v-col>
@@ -165,7 +144,7 @@
 import DateLabel from '@/components/ui/DateLabel.vue';
 import { VDateInput } from 'vuetify/labs/VDateInput'
 import { ruleRequired, ruleEmail, ruleFullName } from '@/helpers/RulesHelper';
-
+import axios from 'axios';
 export default {
 	name: 'Socios',
 	components: {
@@ -177,8 +156,6 @@ export default {
 			message: 'Hello, Vue!',
 			data: {
 				titulo: '',
-				empresa: '',
-				cnpj: '',
 				dayI: '',
 				monthI: '',
 				yearI: '',
@@ -203,7 +180,40 @@ export default {
 	methods: {
 		greet() {
 			alert(this.message);
+		},
+		//criar metodo para cadastrar projeto na api usando axios:http://localhost:8000/projetos/
+
+		async addProjeto() {
+			try {
+				const data_inicio = `${this.data.yearI}-${String(this.data.monthI).padStart(2, '0')}-${String(this.data.dayI).padStart(2, '0')}`;
+				const data_fim = `${this.data.yearF}-${String(this.data.monthF).padStart(2, '0')}-${String(this.data.dayF).padStart(2, '0')}`;
+
+				const payload = {
+					titulo: this.data.titulo,
+					data_inicio: data_inicio,
+					data_fim: data_fim,
+		
+				};
+
+				console.log(payload);
+
+				const response = await axios.post('http://localhost:8000/projetos/', payload,{
+					headers: {
+						'Content-Type': 'application/json',
+					}
+				});
+				if (response.status === 200) {
+					alert('Projeto adicionado com sucesso!');
+					console.log(response.data);
+					this.$router.push("/home");
+				}
+			} catch (error) {
+				console.error('Erro:', error);
+				alert('Erro ao adicionar projeto.');
+			}
 		}
+
+
 	},
 };
 </script>

@@ -131,30 +131,31 @@
       },
 
 		async login() {
-			try{
-				const params = new URLSearchParams();
-				params.append("username", this.email);
-				params.append("password", this.password);
+		try {
+			const response = await axios.post('http://localhost:8000/login', {
+				email: this.email,
+				password: this.password
+			});
 
-				const response = await axios.post('http://localhost:8000/login/token', params,
-					{
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-					}
-				);
+			if (response.status === 200) {
+				const { email, cargo, access_token, token_type, exp } = response.data;
 
-				if(response.status === statusCode.OK) {
-					console.log(response.data);
-					this.$router.push("/home");
-				} else {
-					this.alert = true;
-					this.alert("não foi possivel acessar a api");
-				}
-			}catch(error){
-				this.alert("não foi possivel acessar a api");
+				// Armazenar o token e as informações do usuário
+				localStorage.setItem('userToken', access_token);
+				localStorage.setItem('userCargo', cargo); // Armazena o cargo
+				localStorage.setItem('userEmail', email); // Armazena o email
+				localStorage.setItem('tokenExpiration', exp); // Armazena o tempo de expiração
+
+				// Redirecionar para a rota protegida
+				if (cargo === 'presidente') {
+					this.$router.push('/home'); // Ou qualquer rota protegida
+				} 
 			}
-    	},
+		} catch (error) {
+			console.error('Erro no login:', error);
+			alert('Credenciais inválidas ou erro no servidor.');
+		}
+		},
 			
 		resetPassword(){
 			this.$router.push("/forgot-password");
