@@ -19,9 +19,9 @@
 	<v-divider></v-divider>
 	<v-list density="compact" nav>
 		<v-list-item prepend-icon="mdi-home" :title="$t('menu.home')" to="/" exact active-class="custon-active-iten"></v-list-item>
-		<v-list-item prepend-icon="mdi-account" :title="$t('menu.partners')" to="/socios" exact active-class="custon-active-iten"></v-list-item>
-		<v-list-item prepend-icon="mdi-folder-multiple" :title="$t('menu.projects')" to="/projetos" exact active-class="custon-active-iten"></v-list-item>
-		<v-list-item prepend-icon="mdi-hand-coin-outline" :title="$t('menu.mensality')" to="/financas" exact active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-account" :title="$t('menu.partners')" to="/socios" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-folder-multiple" :title="$t('menu.projects')" to="/projetos" active-class="custon-active-iten"></v-list-item>
+		<v-list-item prepend-icon="mdi-hand-coin-outline" :title="$t('menu.mensality')" to="/financas" active-class="custon-active-iten"></v-list-item>
 	</v-list>
 	
 	<template v-slot:append>
