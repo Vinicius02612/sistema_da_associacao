@@ -197,7 +197,7 @@ export default {
 					name: this.data.name,
 					email: this.data.email,
 					cpf: this.data.cpf,
-					data_nascimento: data_nascimento,
+					data_nascimento: data_modificada,
 					senha: this.data.cpf, // ou outro campo de senha, se houver
 					quantidade: Number(this.data.quantidade) || 1, // valor padrão 1 se não informado
 					cargo: this.data.cargo,
@@ -215,14 +215,8 @@ export default {
 						alert('Sócio adicionado com sucesso!');
 						console.log(response.data);
 						this.$router.push("/home");
-					} else {
-						alert('Erro ao adicionar sócio.');
 					}
 				})
-				.catch(error => {
-					console.error('Erro:', error);
-					alert('Erro ao adicionar sócio.');
-				});
 			} catch (error) {
 				console.error('Erro:', error);
 			}
