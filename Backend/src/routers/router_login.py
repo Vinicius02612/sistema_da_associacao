@@ -16,7 +16,7 @@ router = APIRouter(prefix="/login")
 
 
 """Criar meotodo loggin para pegar o email e senha do usuário e rtornar os dados do usuário logado"""
-@router.get("/auth", response_model=UserResponse)
+@router.post("/auth", response_model=UserResponse)
 async def get_user(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: Session = Depends(get_session)):
     """Retorna os dados do usuário logado"""
     user  = authenticate_user(session, form_data.username, form_data.password)
