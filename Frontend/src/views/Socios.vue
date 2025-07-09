@@ -145,9 +145,6 @@
 		<v-card>
 			<v-card-title class="headline">Editar Sócio</v-card-title>
 			<v-card class="align-center justify-center">
-					<v-card-title class="align-start justify-start">
-						Adicionar Sócio
-					</v-card-title>
 					<v-card-text>
 							<div class="d-flex align-center justify-center" style="width: 100%;">
 								<v-row class="mt-0 ml-0 mr-0 align-start justify-center" :gutter="1">
