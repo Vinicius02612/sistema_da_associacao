@@ -32,6 +32,7 @@ const errorCode = {
   CHAT_IN_PROGRESS: "O chat já está em atendimento.",
   "Name already taken": "Nome já utilizado.",
 	"loginSuccess": "Login efetuado com sucesso!",
+	"AssocAdictSucess": "Associado cadastrado com sucesso!",
 	"Email Password Reset Sent": "Email de redefinição de senha enviado!",
 };
 
@@ -83,7 +84,8 @@ export default {
     // Defina a lógica de mensagem de erro aqui, semelhante a toastWarning
     if (error.body) {
       // Se o erro tiver uma resposta (por exemplo, um erro de API)
-      msg = error.body.message || "Erro inesperado!";
+			console.log(error.body);
+      msg = error.body.detail || "Erro inesperado!";
 		} else if (error.status) {
 			msg = errorCode[error.statusText] || error.statusText || "Erro desconhecido!";
     } else {
