@@ -10,9 +10,13 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:8080", # ambiente de desenvolvimento local
+    "https://sistema-da-associacao-l5ow.onrender.com", # <--- A URL COMPLETA  frontend no Render
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080","*"], 
+    allow_origins=[origins,"*"], 
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],
