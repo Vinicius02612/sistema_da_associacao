@@ -57,7 +57,7 @@
 											</div>
 											
 											<div class="ml-3" style="width: 50%;">
-												<span>Quantidade de pessoas na família</span>
+												<span>Pessoas na família</span>
 												<v-text-field
 												type="number"
 												variant="outlined"
@@ -139,8 +139,11 @@
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
-import { ruleRequired, ruleEmail, ruleFullName } from '@/helpers/RulesHelper';
-import axios from 'axios';
+import { ruleRequired, ruleEmail, ruleFullName} from '@/helpers/RulesHelper';
+import UserController from '@/controllers/userController';
+import statusCode from '@/helpers/statusCode';
+
+const userController = new UserController();
 export default {
 	name: 'Socios',
 	components: {
@@ -199,26 +202,22 @@ export default {
 					cpf: this.data.cpf,
 					data_nascimento: data_modificada,
 					senha: this.data.cpf, // ou outro campo de senha, se houver
-					quantidade: Number(this.data.quantidade) || 1, // valor padrão 1 se não informado
+					quantidade: Number(this.data.familia) || 1, // valor padrão 1 se não informado
 					cargo: this.data.cargo,
 					dtassociacao: dtassociacao
 				};
 
-				console.log(payload);
-				axios.post('http://localhost:8000/users', payload, {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				})
+			
+				userController.registerUser(payload)
 				.then(response => {
-					if (response.status === 200) {
-						alert('Sócio adicionado com sucesso!');
-						console.log(response.data);
-						this.$router.push("/home");
-					}
+						statusCode.toastSuccess({
+							status: response.status,
+							statusText: "Associado adicionado com sucesso",
+						});
+						window.location.href = "/socios";
 				})
 			} catch (error) {
-				console.error('Erro:', error);
+				statusCode.toastError(error);
 			}
 		}
 	},
