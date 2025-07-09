@@ -19,9 +19,8 @@ def get_projetos(db:Session = Depends(get_db)) -> ProjetosResponse:
 
 
 @router.post("/", response_model=ProjetosResponse, status_code=201)
-def post_projetos(projetos: ProjetosRequest, db: Session = Depends(get_db),permission: User = Depends(president_permission)) -> Projetos:
-    if permission.cargo != "PRESIDENTE":
-        raise HTTPException(status_code='403', detail="Usuário não permito!")
+def post_projetos(projetos: ProjetosRequest, db: Session = Depends(get_db)) -> Projetos:
+
     new_projetos = Projetos(
         **projetos.model_dump()
     )
@@ -32,11 +31,8 @@ def post_projetos(projetos: ProjetosRequest, db: Session = Depends(get_db),permi
     return new_projetos
 
 @router.put("/{id}", response_model=ProjetosResponse)
-def projetos_update(id:int, projetos_request: ProjetosRequest, db: Session = Depends(get_db),permission: User = Depends(president_permission)) -> Projetos:
-    if permission.cargo !="PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-    
-    
+def projetos_update(id:int, projetos_request: ProjetosRequest, db: Session = Depends(get_db)) -> Projetos:
+
     projetos = db.query(Projetos).filter(Projetos.id == id).first()
     if not projetos:
         raise HTTPException(status_code=404, detail="Projeto não encontrado")
@@ -49,10 +45,8 @@ def projetos_update(id:int, projetos_request: ProjetosRequest, db: Session = Dep
 
 
 @router.delete("/{id}", status_code=204)
-def projetos_delete(id:int, db: Session = Depends(get_db),permission: User = Depends(president_permission)):
-    if permission.cargo != 'PRESIDENTE':
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-    
+def projetos_delete(id:int, db: Session = Depends(get_db)):
+
     projetos = db.query(Projetos).filter(Projetos.id == id).first()
     if not projetos:
         raise HTTPException(status_code=404, detail="Projeto não encontrado")
@@ -63,7 +57,6 @@ def projetos_delete(id:int, db: Session = Depends(get_db),permission: User = Dep
 @router.get("/{titulo}", response_model=ProjetosResponse)
 def get_projetos_by_titulo(titulo:str, db:Session = Depends(get_db)) -> ProjetosResponse:
   
-    
     projetos = db.query(Projetos).filter(Projetos.titulo == titulo).first()
     if not projetos:
         raise HTTPException(status_code=404, detail="Projeto não encontrado")

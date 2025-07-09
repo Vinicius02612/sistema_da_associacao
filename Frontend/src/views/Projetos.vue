@@ -84,8 +84,6 @@
 							<thead>
 								<tr>
 									<th>Titulo</th>
-									<th>CNPJ</th>
-									<th>Instituição/Empresa</th>
 									<th>Data de Inicio</th>
 									<th>Data de Término</th>
 									<th>Status</th>
@@ -99,10 +97,10 @@
 								:style="{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f8f8' }"
 								>
 								<td>{{ item.Titulo }}</td>
-								<td>{{ item.CNPJ }}</td>
-								<td>{{ item.InstituicaoEmpresa }}</td>
-								<td><DateLabel :date="new Date(item.dataInicio)" /> </td>
-								<td><DateLabel :date="new Date(item.dataFim)" /> </td>
+
+								<td>{{ formatDate(item.dataInicio) }}</td>
+            					<td>{{ formatDate(item.dataFim) }}</td>
+								
 								<td>
 									<v-chip
 									:color="item.status === 'Finalizado' ? 'gray' : item.status === 'Cancelado' ? 'red' : 'green'"
@@ -156,7 +154,7 @@
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
-
+import axios from 'axios';
 export default {
 	name: 'projetos',
 	components: {
@@ -165,188 +163,7 @@ export default {
 	data() {
 		return {
 			message: 'Hello, Vue!',
-			projetos: [
-									{
-										id: 1,
-										Titulo: "Projeto Alfabetização Digital",
-										CNPJ: "10.123.456/0001-01",
-										InstituicaoEmpresa: "Fundação Saber",
-										dataInicio: "2023-02-01",
-										dataFim: "2023-12-01",
-										status: "Finalizado"
-									},
-									{
-										id: 2,
-										Titulo: "Oficina de Arte Urbana",
-										CNPJ: "11.234.567/0001-02",
-										InstituicaoEmpresa: "Cultura Jovem",
-										dataInicio: "2024-04-15",
-										dataFim: "2024-09-15",
-										status: "Em Andamento"
-									},
-									{
-										id: 3,
-										Titulo: "Capacitação Profissional",
-										CNPJ: "12.345.678/0001-03",
-										InstituicaoEmpresa: "Senai",
-										dataInicio: "2022-08-01",
-										dataFim: "2023-07-01",
-										status: "Finalizado"
-									},
-									{
-										id: 4,
-										Titulo: "Projeto Saúde em Ação",
-										CNPJ: "13.456.789/0001-04",
-										InstituicaoEmpresa: "Secretaria de Saúde",
-										dataInicio: "2024-01-01",
-										dataFim: "2024-12-31",
-										status: "Em Andamento"
-									},
-									{
-										id: 5,
-										Titulo: "Inclusão Digital para Idosos",
-										CNPJ: "14.567.890/0001-05",
-										InstituicaoEmpresa: "Associação Conectar",
-										dataInicio: "2023-05-10",
-										dataFim: "2023-11-10",
-										status: "Finalizado"
-									},
-									{
-										id: 6,
-										Titulo: "Projeto Recicla Mais",
-										CNPJ: "15.678.901/0001-06",
-										InstituicaoEmpresa: "Eco Vida",
-										dataInicio: "2024-02-20",
-										dataFim: "2024-08-20",
-										status: "Em Andamento"
-									},
-									{
-										id: 7,
-										Titulo: "Feira de Livros",
-										CNPJ: "16.789.012/0001-07",
-										InstituicaoEmpresa: "Editora Saber",
-										dataInicio: "2023-09-01",
-										dataFim: "2023-09-07",
-										status: "Finalizado"
-									},
-									{
-										id: 8,
-										Titulo: "Semana da Juventude",
-										CNPJ: "17.890.123/0001-08",
-										InstituicaoEmpresa: "Prefeitura Jovem",
-										dataInicio: "2023-06-10",
-										dataFim: "2023-06-17",
-										status: "Cancelado"
-									},
-									{
-										id: 9,
-										Titulo: "Mutirão de Limpeza",
-										CNPJ: "18.901.234/0001-09",
-										InstituicaoEmpresa: "Amigos do Bairro",
-										dataInicio: "2024-03-05",
-										dataFim: "2024-03-20",
-										status: "Em Andamento"
-									},
-									{
-										id: 10,
-										Titulo: "Oficina de Robótica",
-										CNPJ: "19.012.345/0001-10",
-										InstituicaoEmpresa: "Tech Júnior",
-										dataInicio: "2022-10-01",
-										dataFim: "2023-03-01",
-										status: "Finalizado"
-									},
-									{
-										id: 11,
-										Titulo: "Esporte para Todos",
-										CNPJ: "20.123.456/0001-11",
-										InstituicaoEmpresa: "ONG Movimento",
-										dataInicio: "2024-05-01",
-										dataFim: "2024-12-01",
-										status: "Em Andamento"
-									},
-									{
-										id: 12,
-										Titulo: "Projeto Música na Praça",
-										CNPJ: "21.234.567/0001-12",
-										InstituicaoEmpresa: "Fundação Cultura",
-										dataInicio: "2023-04-01",
-										dataFim: "2023-10-01",
-										status: "Finalizado"
-									},
-									{
-										id: 13,
-										Titulo: "Plante uma Árvore",
-										CNPJ: "22.345.678/0001-13",
-										InstituicaoEmpresa: "Verde Esperança",
-										dataInicio: "2024-06-01",
-										dataFim: "2024-07-15",
-										status: "Em Andamento"
-									},
-									{
-										id: 14,
-										Titulo: "Semana da Leitura",
-										CNPJ: "23.456.789/0001-14",
-										InstituicaoEmpresa: "Biblioteca Central",
-										dataInicio: "2023-08-01",
-										dataFim: "2023-08-07",
-										status: "Finalizado"
-									},
-									{
-										id: 15,
-										Titulo: "Concurso de Redação",
-										CNPJ: "24.567.890/0001-15",
-										InstituicaoEmpresa: "Secretaria de Educação",
-										dataInicio: "2023-02-01",
-										dataFim: "2023-04-01",
-										status: "Finalizado"
-									},
-									{
-										id: 16,
-										Titulo: "Cine Comunidade",
-										CNPJ: "25.678.901/0001-16",
-										InstituicaoEmpresa: "Associação Cultural",
-										dataInicio: "2024-07-01",
-										dataFim: "2024-07-30",
-										status: "Em Andamento"
-									},
-									{
-										id: 17,
-										Titulo: "Oficina de Inglês",
-										CNPJ: "26.789.012/0001-17",
-										InstituicaoEmpresa: "Idiomas para Todos",
-										dataInicio: "2023-09-10",
-										dataFim: "2023-12-10",
-										status: "Finalizado"
-									},
-									{
-										id: 18,
-										Titulo: "Projeto Alimenta Bem",
-										CNPJ: "27.890.123/0001-18",
-										InstituicaoEmpresa: "Ação Solidária",
-										dataInicio: "2024-02-01",
-										dataFim: "2024-08-01",
-										status: "Em Andamento"
-									},
-									{
-										id: 19,
-										Titulo: "Turismo Local Sustentável",
-										CNPJ: "28.901.234/0001-19",
-										InstituicaoEmpresa: "Turismo e Cultura",
-										dataInicio: "2023-05-15",
-										dataFim: "2023-10-15",
-										status: "Cancelado"
-									},
-									{
-										id: 20,
-										Titulo: "Feira da Agricultura Familiar",
-										CNPJ: "29.012.345/0001-20",
-										InstituicaoEmpresa: "Agro Vida",
-										dataInicio: "2024-01-10",
-										dataFim: "2024-01-15",
-										status: "Finalizado"
-									}
-								],
+			projetos: [ ],
 			projetosFiltered: null,
 			filters: {
 				selected: "all",
@@ -354,37 +171,98 @@ export default {
 				},
 		};
 	},
-	mounted(){
+	async mounted(){
+		await this.loadProjetos();
 		this.filterProjetos();
 	},
 	methods: {
-		greet() {
-			alert(this.message);
-		},
-		filterProjetos() {
-			switch (this.filters.selected) {
-				case "all":
-					this.projetosFiltered = this.projetos;
-					console.log(this.projetosFiltered);
-					break;
-				case "andamento":
-					this.projetosFiltered = this.projetos.filter((item) => item.status === "Em Andamento");
-					break;
-				case "canceled":
-					this.projetosFiltered = this.projetos.filter((item) => item.status === "Cancelado");
-					break;
-				case "complete":
-					this.projetosFiltered = this.projetos.filter((item) => item.status === "Finalizado");
-					break;
-				case "search":
-					this.projetosFiltered = this.projetos.filter((item) => 
-						item?.Titulo?.toLowerCase().includes(this.filters.search.toLowerCase()) ||
-						item?.CNPJ?.includes(this.filters.search)
+		async loadProjetos() {
+			try {
+				const response = await axios.get('http://localhost:8000/projetos', {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					// Se precisar de autenticação, adicione o token aqui via interceptor ou manualmente
+					// Authorization: `Bearer ${localStorage.getItem('userToken')}`
+				});
 
-					);
-					break;
+				console.log(response);
+
+				// Um status 200 é o esperado para requisições GET bem-sucedidas
+		
+				if (response.status === 200) {
+					
+					this.projetos = response.data.map((item) => ({
+
+						id: item.id,
+						Titulo: item.titulo,
+						//converter data_inicio e data_fim para o formato valido dia mes e ano
+						
+						dataInicio: item.dtinicio,
+						dataFim: item.dtfim,
+						status: "Em andamento", // Assumindo que o status vem como string ('Em Andamento', 'Cancelado', 'Finalizado')
+					}));
+				} else {
+					// Para outros status 2xx que não 200, ou casos específicos
+					console.warn('Resposta da API com status inesperado:', response.status, response.statusText);
+					alert('Houve um problema ao carregar os projetos. Tente novamente.');
+				}
+			} catch (error) {
+				// Captura erros de rede, erros HTTP (4xx, 5xx)
+				console.error('Erro ao carregar projetos:', error);
+				alert('Erro ao conectar com o servidor ou carregar projetos. Verifique sua conexão.');
+
+				// Opcional: Se for um erro 401/403 (Unauthorized/Forbidden), redirecionar para o login
+				if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+					// Lógica para deslogar e redirecionar
+					// this.$router.push('/login');
+				}
 			}
 		},
+		filterProjetos() {
+			let tempProjetos = [...this.projetos]; // Começa com uma cópia dos projetos originais
+
+			// Aplica o filtro de busca primeiro, se houver
+			if (this.filters.search) {
+				const searchTerm = this.filters.search.toLowerCase();
+				tempProjetos = tempProjetos.filter((item) =>
+					item?.Titulo?.toLowerCase().includes(searchTerm) ||
+					item?.CNPJ?.includes(searchTerm) // CNPJ geralmente não é sensível a maiúsculas/minúsculas, mas a busca sim
+				);
+			}
+
+			// Aplica o filtro de status sobre os resultados da busca (ou sobre todos os projetos se não houver busca)
+			switch (this.filters.selected) {
+				case "andamento":
+					tempProjetos = tempProjetos.filter((item) => item.status === "Em Andamento");
+					break;
+				case "canceled":
+					tempProjetos = tempProjetos.filter((item) => item.status === "Cancelado");
+					break;
+				case "complete":
+					tempProjetos = tempProjetos.filter((item) => item.status === "Finalizado");
+					break;
+				// Para "all" ou "search" (já tratado acima), não fazemos um filtro adicional aqui.
+				// O caso "search" só serve para indicar que o filtro de busca está ativo,
+				// a filtragem real já aconteceu no 'if (this.filters.search)'.
+			}
+
+			this.projetosFiltered = tempProjetos;
+			console.log("Projetos Filtrados:", this.projetosFiltered);
+		},
+		formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            // Verifica se a data é válida
+            if (isNaN(date.getTime())) {
+                return 'Data Inválida'; // Ou algum placeholder de erro
+            }
+            // Formate a data como desejar, por exemplo: DD/MM/AAAA
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês é 0-indexed
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
 	},
 	watch: {
 		"filters.search"() {

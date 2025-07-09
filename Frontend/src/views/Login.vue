@@ -39,7 +39,7 @@
 												variant="outlined"
 												density="compact"
 												:rules="[ruleRequired, ruleEmail]"
-												v-model="email"
+												v-model="username"
 												type="email"
 												@keypress.space.prevent
 												@keyup.enter="login"
@@ -101,8 +101,9 @@
   import { useUserStore } from '@/stores/user.store';
   import { ruleEmail, rulePassword, ruleRequired } from '@/helpers/RulesHelper';
   import { goToGoogleLogin} from '@/services/auth.service';
-	import AuthService from '@/controllers/authController';
-	import statusCode from '@/helpers/statusCode';
+  import AuthService from '@/controllers/authController';
+  import {axios} from 'axios';
+  import statusCode from '@/helpers/statusCode';
 
   const userStore = useUserStore();
 	const authService = new AuthService();
@@ -110,17 +111,17 @@
   export default {
     data() {
       return {
-				visible: false,
+		visible: false,
         loading: false,
         loginMailSent: false,
-        email: "",
-				password: "",
+        username: "",
+		password: "",
         timer: 0,
-				alert: false,
-				valid: false,
-				ruleEmail,
-				rulePassword,
-				ruleRequired,
+		alert: false,
+		valid: false,
+		ruleEmail,
+		rulePassword,
+		ruleRequired,
       }
     },
 
@@ -128,8 +129,7 @@
       onGoToGoogleLogin() {
         goToGoogleLogin();
       },
-
-			async login() {
+      async login() {
 				try {
 					this.valid = await this.$refs.login.validate();
 					if (!this.valid.valid) {
@@ -154,6 +154,7 @@
 						status: response.status,
 						statusText: "loginSuccess",
 					});
+				  
 					await authService.setUserLocalStorage(response.body)
 					window.location.href = "/";
 					
@@ -164,9 +165,9 @@
 				}
     	},
 			
-			resetPassword(){
-				this.$router.push("/forgot-password");
-			},
+		resetPassword(){
+			this.$router.push("/forgot-password");
+		},
     },
 
     computed: {

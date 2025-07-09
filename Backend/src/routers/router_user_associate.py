@@ -29,25 +29,19 @@ def get_user_associates( db:Session = Depends(get_session)) -> List[UserResponse
         return user
 
 @router.get("/{id}", response_model=UserResponse)
-def get_user_associate(id:int, db:Session = Depends(get_session), current_user:User = Depends(president_permission)) -> UserResponse:
-    
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-    
-    
+def get_user_associate(id:int, db:Session = Depends(get_session)) -> UserResponse:
+
     user = db.query(User).filter(User.id == id).first()
     return user
 
 #rota para buscar usuarui pelo cpf
 @router.get("/{cpf}", response_model=UserResponse)
-def get_user_by_cpf(cpf:str, db:Session = Depends(get_session),current_user: User = Depends(president_permission)) -> UserResponse:
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-    else:
-        user = db.query(User).filter(User.cpf == cpf).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="Usuário não encontrado")
-        return user
+def get_user_by_cpf(cpf:str, db:Session = Depends(get_session)) -> UserResponse:
+
+    user = db.query(User).filter(User.cpf == cpf).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    return user
 
 
 @router.post("/", response_model=UserResponse, status_code=201)
@@ -103,25 +97,20 @@ def update_user(id:int, user_request: UserRequest, session: Session = Depends(ge
 
 
 @router.delete("/{id}", status_code=204)
-def delete_user(id:int, session: Session = Depends(get_session),  current_user: User = Depends(president_permission)):
-    if current_user.cargo != "PRESIDENTE":
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
+def delete_user(id:int, session: Session = Depends(get_session)):
+
+    user = session.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
     else:
-        user = session.query(User).filter(User.id == id).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="Usuário não encontrado")
-        else:
-            session.delete(user)
-            session.commit()
-        return None
+        session.delete(user)
+        session.commit()
+    return None
 
 #rota para buscar um usuario pelo nome ou cpf
 @router.get("/{name_or_cpf}", response_model=UserResponse)
-def get_user_by_name_or_cpf(name_or_cpf:str, db:Session = Depends(get_session),  current_user: User = Depends(get_current_user)) -> UserResponse:
-    if current_user.id != id:
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
-    else:
-        user = db.query(User).filter(User.name == name_or_cpf or User.cpf == name_or_cpf).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="Usuário não encontrado")
-        return user
+def get_user_by_name_or_cpf(name_or_cpf:str, db:Session = Depends(get_session)) -> UserResponse:
+    user = db.query(User).filter(User.name == name_or_cpf or User.cpf == name_or_cpf).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    return user
