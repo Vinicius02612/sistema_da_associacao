@@ -15,10 +15,20 @@ logging.basicConfig(level=logging.DEBUG)
 router = APIRouter(prefix="/login")
 
 
-@router.get("/")
-async def view_login():
-    return {"message": "Hello Login"}
+"""Criar meotodo loggin para pegar o email e senha do usuário e rtornar os dados do usuário logado"""
+@router.get("/user", response_model=User)
+async def get_user(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: Session = Depends(get_session)):
+    """Retorna os dados do usuário logado"""
+    user  = authenticate_user(session, form_data.username, form_data.password)
 
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Usuário não encontrado",
+        )
+    
+    return user
+    
 @router.post("/token", response_model=UserToken)
 async def login_for_access_token( form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: Session = Depends(get_session)):
    
