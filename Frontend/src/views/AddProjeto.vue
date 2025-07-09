@@ -15,17 +15,35 @@
 										variant="outlined"
 										v-model="data.titulo"
 										:rules="[ruleRequired, ruleFullName]"
-										size="compact"
 										></v-text-field>
+
+										<span>Usuário Relacionado</span>
+										<v-combobox
+											v-model="data.selectedUserId"
+											:items="socios"
+											item-title="text"
+											item-value="value"
+											:rules="[ruleRequired]"
+											variant="outlined"
+											:return-object="false"
+										/>
+
+										<span>Status</span>
+										<v-combobox
+											v-model="data.status"
+											:items="status"
+											item-title="text"
+											item-value="value"
+											variant="outlined"
+											:rules="[ruleRequired]"
+											:return-object="false"
+										></v-combobox>
 									</v-col>
 
 									<v-col cols="4">
-										
-
+										<span>Data de Início</span>
 										<div class="d-flex align-center justify-center" style="width: 100%;">
 
-											<div class="mr-3" style="width: 50%;">
-												<span>Data de Início</span>
 												<v-row dense>
 													<v-col cols="4">
 														<v-text-field
@@ -36,7 +54,6 @@
 															:min="1"
 															:max="31"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
@@ -49,7 +66,6 @@
 															:min="1"
 															:max="12"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
@@ -62,14 +78,13 @@
 															:min="1900"
 															:max="2100"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
 												</v-row>
 											</div>
-											<div class="ml-3" style="width: 50%;">
-												<span>Data de Finalização</span>
+											<span>Data de Finalização</span>
+											<div class="" style="width: 100%;">
 												<v-row dense>
 													<v-col cols="4">
 														<v-text-field
@@ -80,7 +95,6 @@
 															:min="1"
 															:max="31"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
@@ -93,7 +107,6 @@
 															:min="1"
 															:max="12"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
@@ -106,23 +119,11 @@
 															:min="1900"
 															:max="2100"
 															:rules="[ruleRequired]"
-															size="compact"
 														>
 														</v-text-field>
 													</v-col>
 												</v-row>
 											</div>
-										</div>
-
-										<span>Status</span>
-										<v-combobox
-											v-model="data.status"
-											:items="status.map(item => item.text)"
-											variant="outlined"
-											:rules="[ruleRequired]"
-										></v-combobox>
-										
-
 									</v-col>
 									<v-col class="d-flex align-center justify-center" cols="8">
 										<v-btn color="primary" class="ma-2" @click="addProjeto" >
@@ -144,7 +145,13 @@
 import DateLabel from '@/components/ui/DateLabel.vue';
 import { VDateInput } from 'vuetify/labs/VDateInput'
 import { ruleRequired, ruleEmail, ruleFullName } from '@/helpers/RulesHelper';
-import axios from 'axios';
+import UserController from '@/controllers/userController';
+import ProjectsController from '@/controllers/projectsControler';
+import statusCode from '@/helpers/statusCode';
+
+const userController = new UserController();
+const projectsController = new ProjectsController();
+
 export default {
 	name: 'Socios',
 	components: {
@@ -166,50 +173,68 @@ export default {
 				datafim: '',
 				descrição: '',
 				status: '',
+				selectedUserId: "",
 			},
 			status: [
 				{ text: 'Em Andamento', value: 'inProgress' },
 				{ text: 'Finalizado', value: 'complete' },
 				{ text: 'Cancelado', value: 'cancel' },
 			],
+			socios: [],
 			ruleRequired,
 			ruleEmail,
 			ruleFullName,
 		};
 	},
+	async mounted() {
+		await this.loadSocios();
+	},
+
 	methods: {
 		greet() {
 			alert(this.message);
 		},
 		//criar metodo para cadastrar projeto na api usando axios:http://localhost:8000/projetos/
 
+		async loadSocios() {
+						try {
+								const response = await userController.getUsers().then((response) => {
+										return response;
+								});
+								if (response.status === 200) {
+										this.socios = response.body.map(user => ({
+											text: user.name,
+											value: user.id,
+										}));
+								}
+						} catch (error) {
+								console.error('Erro ao carregar sócios:', error);
+								alert('Erro ao carregar lista de sócios');
+						}
+				},
+
 		async addProjeto() {
 			try {
-				const data_inicio = `${this.data.yearI}-${String(this.data.monthI).padStart(2, '0')}-${String(this.data.dayI).padStart(2, '0')}`;
-				const data_fim = `${this.data.yearF}-${String(this.data.monthF).padStart(2, '0')}-${String(this.data.dayF).padStart(2, '0')}`;
 
 				const payload = {
 					titulo: this.data.titulo,
-					data_inicio: data_inicio,
-					data_fim: data_fim,
-		
+					dtinicio: `${this.data.yearI}-${String(this.data.monthI).padStart(2, '0')}-${String(this.data.dayI).padStart(2, '0')}`,
+					dtfim: `${this.data.yearF}-${String(this.data.monthF).padStart(2, '0')}-${String(this.data.dayF).padStart(2, '0')}`,
+					iduser: this.data.selectedUserId,
 				};
 
-				console.log(payload);
-
-				const response = await axios.post('http://localhost:8000/projetos/', payload,{
-					headers: {
-						'Content-Type': 'application/json',
-					}
+				const response = await projectsController.addProject(payload).then((response) => {
+					return response;
 				});
-				if (response.status === 200) {
-					alert('Projeto adicionado com sucesso!');
-					console.log(response.data);
-					this.$router.push("/home");
+				if (response.status === 201) {
+					statusCode.toastSuccess({
+						status: response.status,
+						statusText: "Projeto adicionado com sucesso",
+					});
+					this.$router.push("/projetos");
 				}
 			} catch (error) {
-				console.error('Erro:', error);
-				alert('Erro ao adicionar projeto.');
+				statusCode.toastError(error);
 			}
 		}
 

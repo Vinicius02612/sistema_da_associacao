@@ -70,6 +70,10 @@
         this.rail = !this.rail
       },
 
+			goToHome () {
+				window.location = '/'
+			},
+
       toggleFixed () {
         this.isLocked = !this.isLocked
         this.rail = this.isLocked;

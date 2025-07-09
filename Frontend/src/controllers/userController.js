@@ -14,7 +14,7 @@ export default class UserController {
 	}
 
 	async getUsers() {
-    return await this.base._get(`${this.urlBase}?&limit=60`);
+    return await this.base._get(`${this.urlBase}`);
   }
 
   async getUser(id) {
@@ -22,7 +22,7 @@ export default class UserController {
   }
 
   async updateUser(id, body) {
-    return await this.base._patch(`${this.urlBase}/${id}`, body);
+    return await this.base._put(`${this.urlBase}/${id}`, body);
   }
 
   async deleteUser(id) {
