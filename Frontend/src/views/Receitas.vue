@@ -119,28 +119,7 @@ export default {
 	data() {
 		return {
 			message: 'Hello, Vue!',
-			Receitas: [
-									{ id: 1, Origem: "Venda de artesanato", Data: "2025-05-01", Valor: 45.50 },
-									{ id: 2, Origem: "Doação", Data: "2025-05-02", Valor: 60.00 },
-									{ id: 3, Origem: "Venda de artesanato", Data: "2025-05-03", Valor: 32.75 },
-									{ id: 4, Origem: "Doação", Data: "2025-05-04", Valor: 25.00 },
-									{ id: 5, Origem: "Venda de artesanato", Data: "2025-05-05", Valor: 68.90 },
-									{ id: 6, Origem: "Doação", Data: "2025-05-06", Valor: 15.00 },
-									{ id: 7, Origem: "Venda de artesanato", Data: "2025-05-07", Valor: 40.00 },
-									{ id: 8, Origem: "Doação", Data: "2025-05-08", Valor: 50.00 },
-									{ id: 9, Origem: "Venda de artesanato", Data: "2025-05-09", Valor: 35.20 },
-									{ id: 10, Origem: "Doação", Data: "2025-05-10", Valor: 20.00 },
-									{ id: 11, Origem: "Venda de artesanato", Data: "2025-05-11", Valor: 55.00 },
-									{ id: 12, Origem: "Doação", Data: "2025-05-12", Valor: 30.00 },
-									{ id: 13, Origem: "Venda de artesanato", Data: "2025-05-13", Valor: 65.99 },
-									{ id: 14, Origem: "Doação", Data: "2025-05-14", Valor: 10.50 },
-									{ id: 15, Origem: "Venda de artesanato", Data: "2025-05-15", Valor: 47.30 },
-									{ id: 16, Origem: "Doação", Data: "2025-05-16", Valor: 22.00 },
-									{ id: 17, Origem: "Venda de artesanato", Data: "2025-05-17", Valor: 28.45 },
-									{ id: 18, Origem: "Doação", Data: "2025-05-18", Valor: 60.00 },
-									{ id: 19, Origem: "Venda de artesanato", Data: "2025-05-19", Valor: 38.80 },
-									{ id: 20, Origem: "Doação", Data: "2025-05-20", Valor: 18.00 }
-								],
+			Receitas: [],
 			ReceitasFiltered: null,
 			filters: {
 				selected: "all",
@@ -153,6 +132,24 @@ export default {
 	methods: {
 		greet() {
 			alert(this.message);
+		},
+		async loadReceitas() {
+			try {
+				const response = await this.$axios.get('/receitas');
+				if (response.status === 200) {
+					this.Receitas = response.data.map(item => ({
+						id: item.id,
+						Origem: item.origem,
+						Data: item.data,
+						Valor: item.valor,
+					}));
+					this.filterReceitas();
+				} else {
+					console.error('Erro ao carregar receitas:', response.statusText);
+				}
+			} catch (error) {
+				console.error('Erro ao carregar receitas:', error);
+			}
 		},
 		filterReceitas() {
 			switch (this.filters.selected) {

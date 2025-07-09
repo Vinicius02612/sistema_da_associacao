@@ -130,40 +130,37 @@
         goToGoogleLogin();
       },
       async login() {
-				try {
-					this.valid = await this.$refs.login.validate();
-					if (!this.valid.valid) {
-						const error = new Error("Fields");
-						error.status = 400;
-						error.statusText = "Fields";
-						throw error;
-					};
-					
-					this.loading = true;
+		// criar metodo login usando axios
+		const payload = {
+			username: this.username,
+			password: this.password,
+		}
 
-					const bodyLogin = { 
-						email: this.email,
-						password:this.password 
-					};
-
-					const response = await authService.login(bodyLogin).then( async (res) => {
-						return res;
-					});
-
-					statusCode.toastSuccess({
-						status: response.status,
-						statusText: "loginSuccess",
-					});
-				  
-					await authService.setUserLocalStorage(response.body)
-					window.location.href = "/";
-					
-				}catch (error) {
-					statusCode.toastError(error);
-				}finally{	
-					this.loading = false;
+		axios.post('https://sistema-da-associacao.onrender.com/auth', payload)
+		.then((response) => {
+			if (response.status === statusCode.OK) {
+				const user = response.data;
+				userStore.setUser(user);
+				this.$router.push("/home");
+			} else {
+				this.alert = true;
+			}
+		})
+		.catch((error) => {
+			if (error.response) {
+				if (error.response.status === statusCode.UNAUTHORIZED) {
+					this.alert = true;
+				} else {
+					console.error("Erro ao fazer login:", error);
 				}
-    	},
+			} else {
+				console.error("Erro de conexão:", error);
+			}
+			this.alert = true;
+		});
+
+
+	  },
 			
 		resetPassword(){
 			this.$router.push("/forgot-password");
