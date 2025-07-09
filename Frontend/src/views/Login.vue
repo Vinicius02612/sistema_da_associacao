@@ -102,7 +102,6 @@
   import { ruleEmail, rulePassword, ruleRequired } from '@/helpers/RulesHelper';
   import { goToGoogleLogin} from '@/services/auth.service';
   import AuthService from '@/controllers/authController';
-  import {axios} from 'axios';
   import statusCode from '@/helpers/statusCode';
 
   const userStore = useUserStore();
@@ -111,61 +110,64 @@
   export default {
     data() {
       return {
-		visible: false,
+				visible: false,
         loading: false,
         loginMailSent: false,
         username: "",
-		password: "",
+				password: "",
         timer: 0,
-		alert: false,
-		valid: false,
-		ruleEmail,
-		rulePassword,
-		ruleRequired,
+				alert: false,
+				valid: false,
+				ruleEmail,
+				rulePassword,
+				ruleRequired,
       }
     },
 
-    methods: {
-      onGoToGoogleLogin() {
-        goToGoogleLogin();
-      },
-      async login() {
-		// criar metodo login usando axios
-		const payload = {
-			username: this.username,
-			password: this.password,
-		}
+  methods: {
+    async login() {
+				try {
+					this.valid = await this.$refs.login.validate();
+					if (!this.valid.valid) {
+						const error = new Error("Fields");
+						error.status = 400;
+						error.statusText = "Fields";
+						throw error;
+					};
+					
+					this.loading = true;
 
-		axios.post('https://sistema-da-associacao.onrender.com/auth', payload)
-		.then((response) => {
-			if (response.status === statusCode.OK) {
-				const user = response.data;
-				userStore.setUser(user);
-				this.$router.push("/home");
-			} else {
-				this.alert = true;
-			}
-		})
-		.catch((error) => {
-			if (error.response) {
-				if (error.response.status === statusCode.UNAUTHORIZED) {
-					this.alert = true;
-				} else {
-					console.error("Erro ao fazer login:", error);
+					const bodyLogin = { 
+						username: this.username,
+						password:this.password 
+					};
+
+					const response = await authService.login(bodyLogin).then( async (res) => {
+						return res;
+					});
+
+					console.log("response", response.body);
+
+					statusCode.toastSuccess({
+						status: response.status,
+						statusText: "loginSuccess",
+					});
+				  
+					await authService.setUserLocalStorage(response.body)
+					window.location.href = "/";
+					
+				}catch (error) {
+					statusCode.toastError(error);
+				}finally{	
+					this.loading = false;
 				}
-			} else {
-				console.error("Erro de conexão:", error);
-			}
-			this.alert = true;
-		});
-
-
-	  },
+    	},
 			
 		resetPassword(){
 			this.$router.push("/forgot-password");
 		},
-    },
+
+	},
 
     computed: {
 
