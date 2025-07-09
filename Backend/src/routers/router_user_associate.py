@@ -72,9 +72,7 @@ def create_user_associate(user_request: UserRequest, session: Session = Depends(
 
 
 @router.put("/{id}", response_model=UserResponse)
-def update_user(id:int, user_request: UserRequest, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)) -> User:
-    if current_user.id != id:
-        raise HTTPException(status_code=403, detail="Usuário não autorizado")
+def update_user(id:int, user_request: UserRequest, session: Session = Depends(get_session)) -> User:
     
     try:
         user = session.query(User).filter(User.id == id).first()
