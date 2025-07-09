@@ -135,6 +135,40 @@ npm run dev
 Figma Sistema Associação [figma:](https://www.figma.com/design/qz8cxCq66quwiOBnGCdRZ0/Sistema-Associa%C3%A7%C3%A3o?node-id=558-16&p=f&t=7RM1VE3pdhgqcce0-0)
 
 
+# Teste de Usabilidade
+Para a realização dos testes de usabilidade deste projeto, foi adotada a recomendação proposta por **Jakob Nielsen (2000)**, que defende que um grupo de cinco participantes é suficiente para identificar aproximadamente 80% dos problemas de usabilidade em um produto digital. Essa abordagem é amplamente utilizada em projetos de UX (User Experience - Experiência do Usuário) por sua eficiência, permitindo a detecção das principais falhas com um número reduzido de usuários.
+
+No contexto deste projeto, os cinco participantes convidados fazem parte da própria Associação Quilombola Brejão dos Aipins (AQBA), o que garantiu a representatividade do público-alvo na avaliação. Cada participante recebeu um link com acesso ao sistema em funcionamento, bem como um link para um formulário com questões quantitativas, baseadas em uma escala de concordância de 1 a 5, onde:
+
+   - 1 = Discordo totalmente
+   - 2 = Discordo parcialmente
+   - 3 = Neutro
+   - 4 = Concordo parcialmente
+   - 5 = Concordo totalmente
+
+# Resultados
+
+| Idade     | P1 | P2 | P3 | P4 | P5 | P6 | P7 | P8 |
+|-----------|----|----|----|----|----|----|----|----|
+| 53 anos   | 3  | 3  | 4  | 4  | 3  | 4  | 3  | 5  |
+| 45 anos   | 5  | 5  | 5  | 5  | 5  | 4  | 5  | 5  |
+| 32 anos   | 5  | 5  | 5  | 5  | 5  | 5  | 5  | 5  |
+| 27 anos   | 4  | 4  | 4  | 4  | 4  | 5  | 4  | 5  |
+| 38 anos   | 4  | 4  | 4  | 4  | 4  | 4  | 4  | 5  |
+| **Média** | 4.2| 4.2| 4.4| 4.4| 4.2| 4.4| 4.2| 5.0|
+
+**Legenda das Perguntas:**
+
+- **P1** — Interface fácil de usar  
+- **P2** — Entendeu rapidamente como utilizar  
+- **P3** — Ícones e botões compreensíveis  
+- **P4** — Informações organizadas  
+- **P5** — Navegação intuitiva  
+- **P6** — Aparência agradável  
+- **P7** — Sistema eficiente  
+- **P8** — Usaria o sistema na associação
+
+
 # Contribuição
 
 <img src="https://github.com/aleffericlys.png" width="100" height="100" style="border-radius: 50%;" > <h3>Alef Fericlys[GitHub:](https://github.com/aleffericlys)</h3> 
