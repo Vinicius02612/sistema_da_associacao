@@ -1,57 +1,74 @@
 import { API_URL } from "@/config";
+import qs from "qs"; // Certifique-se de instalar via `npm install qs`
+
 export class BaseController {
   static refreshingTokens = false;
   static refreshTokensPromise = null;
 
-	constructor(userStore) {	
-		this.UserStore = userStore;
-  	this.url = API_URL;
-	}
-  urlFull(uri) {
-    return `${this.url}/v1${uri}`;
+  constructor(userStore) {
+    this.UserStore = userStore;
+    this.url = API_URL;
   }
 
-  getHeaders() {
+  urlFull(uri) {
+    return `${this.url}${uri}`;
+  }
+
+  getHeaders(isForm = false) {
     const headers = {
       Accept: "application/json",
-      "Content-Type": "application/json; charset=utf-8",
     };
 
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
+    if (isForm) {
+      headers["Content-Type"] = "application/x-www-form-urlencoded";
+    } else {
+      headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+
+    const token = localStorage.getItem("token");
+    if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
+
     return headers;
   }
 
-  async _sendRequest(uri, method, body, retry = null) {
+  async _sendRequest(uri, method, body = null, retry = null, isForm = false) {
+    const url = this.urlFull(uri);
+    const options = {
+      method,
+      headers: this.getHeaders(isForm),
+    };
+
+    if (body && !["GET", "HEAD"].includes(method)) {
+      options.body = isForm ? qs.stringify(body) : JSON.stringify(body);
+    }
+
     try {
-      const response = await fetch(this.urlFull(uri), {
-        method: method,
-        headers: this.getHeaders(),
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(url, options);
+
       if (!response.ok) {
-        throw response;
+        const error = new Error("HTTP Error");
+        error.response = response;
+        throw error;
       }
-      let json = {};
-      const bodyResponse = await response.text();
-      if (bodyResponse) {
-        json = JSON.parse(bodyResponse);
-      }
+
+      const bodyText = await response.text();
+      const json = bodyText ? JSON.parse(bodyText) : {};
+
       return {
         body: json,
         status: response.status,
         statusText: response.statusText,
       };
     } catch (error) {
-      const retryInfo = retry || [uri, method, body];
-      if (error.status) {
-        let json = {};
-        const bodyResponse = await error.text();
-        if (bodyResponse) {
-          json = JSON.parse(bodyResponse);
-        }
+      const retryInfo = retry || [uri, method, body, isForm];
+
+      if (error.response) {
+        const response = error.response;
+        const bodyText = await response.text();
+        const json = bodyText ? JSON.parse(bodyText) : {};
+
         if (
           json?.message === "Please authenticate" &&
           uri !== "/auth/refresh-tokens"
@@ -60,21 +77,27 @@ export class BaseController {
             BaseController.refreshTokensPromise = this.refreshTokens();
             BaseController.refreshingTokens = true;
           }
+
           await BaseController.refreshTokensPromise;
           BaseController.refreshingTokens = false;
+
           return await this._sendRequest(
             retryInfo[0],
             retryInfo[1],
             retryInfo[2],
-            retryInfo
+            retryInfo,
+            retryInfo[3]
           );
         }
+
         throw {
           body: json,
-          status: error.status,
-          statusText: error.statusText,
+          status: response.status,
+          statusText: response.statusText,
         };
       }
+
+      console.error("Erro inesperado:", error);
       throw error;
     }
   }
@@ -83,10 +106,9 @@ export class BaseController {
     return this._sendRequest(uri, "GET");
   }
 
-  async _post(uri, body) {
-    return this._sendRequest(uri, "POST", body);
-  }
-
+  async _post(uri, body, isForm = false) {
+		return this._sendRequest(uri, "POST", body, null, isForm);
+	}
   async _delete(uri, body) {
     return this._sendRequest(uri, "DELETE", body);
   }
@@ -102,17 +124,22 @@ export class BaseController {
   async refreshTokens() {
     try {
       const token = localStorage.getItem("refresh-token");
-
-			if (!token) return;
+      if (!token) return;
 
       const response = await this._post("/auth/refresh-tokens", { token });
-      this.UserStore.setToken(response.body.tokens);
+
+      if (response?.body?.tokens) {
+        this.UserStore.setToken(response.body.tokens);
+      }
+
       return response;
     } catch (error) {
       if (error.body?.message === "Please authenticate") {
-				setTimeout(() => {
-					window.location.href = "/login";
-				}, 3000);
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh-token");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
       }
       throw error;
     }
