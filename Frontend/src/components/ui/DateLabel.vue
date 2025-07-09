@@ -14,7 +14,7 @@
     },
     computed: {
       formattedDate() {
-        return moment(this.date).format('DD/MM/YYYY [às] HH:mm');
+        return moment(this.date).format('DD/MM/YYYY');
       }
     }
   };
