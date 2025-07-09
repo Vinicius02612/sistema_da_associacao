@@ -337,8 +337,8 @@ export default {
 		},
 		async mounted() { // Use async here because you'll be awaiting loadSocios
 				await this.loadSocios(); // First, load the data
-				await this.pollingSocios(); // Start polling for updates
 				this.filterSocios(); // Then, apply initial filters
+				await this.pollingSocios(); // Start polling for updates
 		},
 		methods: {
 				greet() {
