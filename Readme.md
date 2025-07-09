@@ -146,6 +146,29 @@ No contexto deste projeto, os cinco participantes convidados fazem parte da pró
    - 4 = Concordo parcialmente
    - 5 = Concordo totalmente
 
+# Resultados
+
+| Idade     | P1 | P2 | P3 | P4 | P5 | P6 | P7 | P8 |
+|-----------|----|----|----|----|----|----|----|----|
+| 53 anos   | 3  | 3  | 4  | 4  | 3  | 4  | 3  | 5  |
+| 45 anos   | 5  | 5  | 5  | 5  | 5  | 4  | 5  | 5  |
+| 32 anos   | 5  | 5  | 5  | 5  | 5  | 5  | 5  | 5  |
+| 27 anos   | 4  | 4  | 4  | 4  | 4  | 5  | 4  | 5  |
+| 38 anos   | 4  | 4  | 4  | 4  | 4  | 4  | 4  | 5  |
+| **Média** | 4.2| 4.2| 4.4| 4.4| 4.2| 4.4| 4.2| 5.0|
+
+**Legenda das Perguntas:**
+
+- **P1** — Interface fácil de usar  
+- **P2** — Entendeu rapidamente como utilizar  
+- **P3** — Ícones e botões compreensíveis  
+- **P4** — Informações organizadas  
+- **P5** — Navegação intuitiva  
+- **P6** — Aparência agradável  
+- **P7** — Sistema eficiente  
+- **P8** — Usaria o sistema na associação
+
+
 # Contribuição
 
 <img src="https://github.com/aleffericlys.png" width="100" height="100" style="border-radius: 50%;" > <h3>Alef Fericlys[GitHub:](https://github.com/aleffericlys)</h3> 
