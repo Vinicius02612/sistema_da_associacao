@@ -198,8 +198,8 @@ export default {
 						Titulo: item.titulo,
 						//converter data_inicio e data_fim para o formato valido dia mes e ano
 						
-						dataInicio: item.data_inicio,
-						dataFim: item.data_fim,
+						dataInicio: item.dtinicio,
+						dataFim: item.dtfim,
 						status: "Em andamento", // Assumindo que o status vem como string ('Em Andamento', 'Cancelado', 'Finalizado')
 					}));
 				} else {
