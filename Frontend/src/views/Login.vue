@@ -154,7 +154,6 @@
 						status: response.status,
 						statusText: "loginSuccess",
 					});
-				  
 					await authService.setUserLocalStorage(response.body)
 					window.location.href = "/";
 					
