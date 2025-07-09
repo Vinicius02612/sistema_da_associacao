@@ -37,7 +37,7 @@ export default defineConfig({
       '.vue',
     ],
   },
-  server: {
+  /* server: {
 		host: '0.0.0.0',
     port: 3000,
 		fs: {
@@ -50,5 +50,9 @@ export default defineConfig({
       ],
       cachedir: '.vite_cache' // Adiciona um diretório de cache, boa prática
 		},
-	}
+	} */
+  build: {
+    outDir: 'dist', // <--- Garanta que isso esteja aqui e corresponda ao Render
+    emptyOutDir: true // Limpa o diretório de saída antes de cada build
+  }
 })
