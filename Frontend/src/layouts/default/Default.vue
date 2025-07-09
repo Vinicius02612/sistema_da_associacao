@@ -1,13 +1,13 @@
 <template>
   <v-app>
 		<div class="d-flex">
-			<default-bar v-if="isLogged"/>
+			<default-bar v-if="this.$route.name !== 'LoginView'"/>
 			<div class="d-flex">
-				<default-top-bar v-if="isLogged"/>
+				<default-top-bar v-if="this.$route.name !== 'LoginView'"/>
 			</div>
 		</div>
 		<default-view />
-		<defout-footer v-if="isLogged"/>
+		<defout-footer v-if="this.$route.name !== 'LoginView'"/>
 		
   </v-app>
 </template>
