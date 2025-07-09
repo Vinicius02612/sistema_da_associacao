@@ -129,33 +129,41 @@
       onGoToGoogleLogin() {
         goToGoogleLogin();
       },
+      async login() {
+				try {
+					this.valid = await this.$refs.login.validate();
+					if (!this.valid.valid) {
+						const error = new Error("Fields");
+						error.status = 400;
+						error.statusText = "Fields";
+						throw error;
+					};
+					
+					this.loading = true;
 
-		async login() {
-		try {
-			const response = await axios.post('http://localhost:8000/login', {
-				email: this.email,
-				password: this.password
-			});
+					const bodyLogin = { 
+						email: this.email,
+						password:this.password 
+					};
 
-			if (response.status === 200) {
-				const { email, cargo, access_token, token_type, exp } = response.data;
+					const response = await authService.login(bodyLogin).then( async (res) => {
+						return res;
+					});
 
-				// Armazenar o token e as informações do usuário
-				localStorage.setItem('userToken', access_token);
-				localStorage.setItem('userCargo', cargo); // Armazena o cargo
-				localStorage.setItem('userEmail', email); // Armazena o email
-				localStorage.setItem('tokenExpiration', exp); // Armazena o tempo de expiração
-
-				// Redirecionar para a rota protegida
-				if (cargo === 'presidente') {
-					this.$router.push('/home'); // Ou qualquer rota protegida
-				} 
-			}
-		} catch (error) {
-			console.error('Erro no login:', error);
-			alert('Credenciais inválidas ou erro no servidor.');
-		}
-		},
+					statusCode.toastSuccess({
+						status: response.status,
+						statusText: "loginSuccess",
+					});
+				  
+					await authService.setUserLocalStorage(response.body)
+					window.location.href = "/";
+					
+				}catch (error) {
+					statusCode.toastError(error);
+				}finally{	
+					this.loading = false;
+				}
+    	},
 			
 		resetPassword(){
 			this.$router.push("/forgot-password");
