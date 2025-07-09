@@ -154,7 +154,10 @@
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
-import axios from 'axios';
+import ProjectsController from '@/controllers/projectsControler';
+import statusCode from '@/helpers/statusCode';
+
+const projectsControler = new ProjectsController();
 export default {
 	name: 'projetos',
 	components: {
@@ -178,12 +181,8 @@ export default {
 	methods: {
 		async loadProjetos() {
 			try {
-				const response = await axios.get('http://localhost:8000/projetos', {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					// Se precisar de autenticação, adicione o token aqui via interceptor ou manualmente
-					// Authorization: `Bearer ${localStorage.getItem('userToken')}`
+				const response = await projectsControler.getProjects().then((response) => {
+						return response;
 				});
 
 				console.log(response);
@@ -192,7 +191,7 @@ export default {
 		
 				if (response.status === 200) {
 					
-					this.projetos = response.data.map((item) => ({
+					this.projetos = response.body.map((item) => ({
 
 						id: item.id,
 						Titulo: item.titulo,
@@ -209,8 +208,10 @@ export default {
 				}
 			} catch (error) {
 				// Captura erros de rede, erros HTTP (4xx, 5xx)
-				console.error('Erro ao carregar projetos:', error);
-				alert('Erro ao conectar com o servidor ou carregar projetos. Verifique sua conexão.');
+				statusCode.toastError({
+					status: error.response ? error.response.status : 500,
+					statusText: error.message || 'Erro ao carregar projetos',
+				});
 
 				// Opcional: Se for um erro 401/403 (Unauthorized/Forbidden), redirecionar para o login
 				if (error.response && (error.response.status === 401 || error.response.status === 403)) {
