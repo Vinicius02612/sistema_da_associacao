@@ -3,7 +3,7 @@ import BaseController from "./baseController";
 
 export default class AuthService {
 	userStore = useUserStore()
-  urlBase = "/auth";
+  urlBase = "/login";
 
   constructor() {
     this.base = new BaseController(this.userStore);
@@ -23,7 +23,7 @@ export default class AuthService {
   }
 
   async login(data) {
-    return this.base._post(`${this.urlBase}/login`, data);
+    return this.base._post(`${this.urlBase}/auth`, data, true);
   }
 
   async logout() {
@@ -65,8 +65,7 @@ export default class AuthService {
 
   async setUserLocalStorage(data) {
     try {
-			this.userStore.setToken(data.tokens)
-			this.userStore.setUser(data.user)
+			this.userStore.setUser(data)
     } catch (err) {
       throw new Error(err);
     }
