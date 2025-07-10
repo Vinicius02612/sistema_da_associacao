@@ -12,7 +12,6 @@ app = FastAPI()
 
 origins = [
     "http://localhost:8080", # ambiente de desenvolvimento local
-    "https://sistema-da-associacao-l5ow.onrender.com",
     "https://front-end-associacao-production.up.railway.app" # <--- A URL COMPLETA  frontend no Render
 ]
 app.add_middleware(
