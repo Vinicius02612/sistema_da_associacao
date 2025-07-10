@@ -30,6 +30,16 @@ def post_mensalidades(mensalidade_request: MensalidadeRequest, db: Session = Dep
     return new_mensalidade
 
 """Listar mensalidade de um usuário fazendo busca pelo cpf e nome"""
+@router.get("/{id}", response_model=List[MensalidadeResponse])
+def get_mensalidade_user(id:int, db: Session = Depends(get_db)) -> List[Mensalidade]:
+    
+    mensalidades = db.query(Mensalidade).filter(Mensalidade.id == id).first()
+    if not mensalidades:
+        raise HTTPException(status_code=404, detail="Não há mensalidades cadastradas")
+    return mensalidades
+
+
+"""Listar mensalidade de um usuário fazendo busca pelo cpf e nome"""
 @router.get("/user", response_model=List[MensalidadeResponse])
 def get_mensalidade_user(cpf: str, nome: str, db: Session = Depends(get_db)) -> List[Mensalidade]:
     
