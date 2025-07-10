@@ -70,9 +70,20 @@ const routes = [
 					},
 					{
 						path: "receitas",
-						name: "Receitas",
-						component: () => import("@/views/Receitas.vue"),
-						meta: { requiresAuth: true, preload: true },
+						children: [
+							{
+								path: "",
+								name: "Receitas",
+								component: () => import("@/views/Receitas.vue"),
+								meta: { requiresAuth: true, preload: true },
+							},
+							{
+								path: "adicionar",
+								name: "Adicionar Receita",
+								component: () => import("@/views/AddReceita.vue"),
+								meta: { requiresAuth: true, preload: true },
+							},
+						],
 					},
 					{
 						path: "despesas",
