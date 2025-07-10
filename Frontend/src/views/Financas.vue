@@ -123,7 +123,7 @@
 								<td>{{ item.CPF }}</td>
 								<td><DateLabel :date="new Date(item.DataNascimento)" /> </td>
 								<td>{{ item.Cargo }}</td>
-								<td>R$ {{ item.Valor.toFixed(2) }}</td>
+								<td>R$ {{ item.valor.toFixed(2) }}</td>
 								<td>
 									<v-chip
 									:color="item.EmAtraso ? 'red' : 'green'"
@@ -143,6 +143,8 @@
 									<v-btn
 										width="32"
 										height="32"
+										@click="dialog = true"
+										:loading="editLoading"
 									>
 										<v-tooltip
 											activator="parent"
@@ -175,10 +177,148 @@
 			
 		</v-row>
 	</v-container>	
+	<v-dialog v-model="dialog" max-width="1300px">
+		<v-card>
+			<v-card-title class="headline">Editar Mensalidade</v-card-title>
+			<v-card class="align-center justify-center">
+					<v-card-title class="align-start justify-start">
+						Adicionar mensalidade
+					</v-card-title>
+					<v-card-text>
+							<div class="d-flex align-center justify-center" style="width: 100%;">
+								<v-row class="mt-0 ml-0 mr-0 align-start justify-center" :gutter="1">
+									<v-col cols="4">
+										<span>valor</span>
+										<v-text-field
+										variant="outlined"
+										v-model="data.titulo"
+										type="number"
+										:rules="[ruleRequired]"
+										></v-text-field>
+
+										<span>Usuário Relacionado</span>
+										<v-combobox
+											v-model="data.selectedUserId"
+											:items="socios"
+											item-title="text"
+											item-value="value"
+											:rules="[ruleRequired]"
+											variant="outlined"
+											:return-object="false"
+										/>
+
+									</v-col>
+
+									<v-col cols="4">
+										<span>Data de Vencimento</span>
+										<div class="d-flex align-center justify-center" style="width: 100%;">
+
+												<v-row dense>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.dayV"
+															label="Dia"
+															type="number"
+															:min="1"
+															:max="31"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.monthV"
+															label="Mês"
+															type="number"
+															:min="1"
+															:max="12"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.yearV"
+															label="Ano"
+															type="number"
+															:min="1900"
+															:max="2100"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+												</v-row>
+											</div>
+											<span>Data de Pagamento</span>
+											<div class="" style="width: 100%;">
+												<v-row dense>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.dayP"
+															label="Dia"
+															type="number"
+															:min="1"
+															:max="31"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.monthP"
+															label="Mês"
+															type="number"
+															:min="1"
+															:max="12"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="data.yearP"
+															label="Ano"
+															type="number"
+															:min="1900"
+															:max="2100"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+												</v-row>
+											</div>
+									</v-col>
+									<v-col class="d-flex align-center justify-center" cols="8">
+										<v-btn color="primary" class="ma-2" @click="addProjeto" >
+											Adicionar
+										</v-btn>
+									</v-col>
+								</v-row>
+
+							</div>
+					</v-card-text>
+				</v-card>
+			<v-card-actions>
+				<v-btn color="primary" @click="dialog = false">Fechar</v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-dialog>
 </template>
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
+import MonthlyController from '@/controllers/monthlyControler';
+import UserController from '@/controllers/userController';
+import statusCode from '@/helpers/statusCode';
+
+const monthlyController = new MonthlyController();
+const userController = new UserController();
 
 export default {
 	name: 'Mensalidades',
@@ -188,222 +328,69 @@ export default {
 	data() {
 		return {
 			message: 'Hello, Vue!',
-			Mensalidades: [
-											{
-												Titular: "Ana Souza",
-												CPF: "123.456.789-00",
-												DataNascimento: "1985-03-12",
-												Cargo: "Presidente",
-												Valor: 150.75,
-												EmAtraso: false
-											},
-											{
-												Titular: "Carlos Lima",
-												CPF: "234.567.890-11",
-												DataNascimento: "1979-11-28",
-												Cargo: "Secretario",
-												Valor: 200.00,
-												EmAtraso: false
-											},
-											{
-												Titular: "Juliana Ferreira",
-												CPF: "345.678.901-22",
-												DataNascimento: "1992-07-06",
-												Cargo: "Tesoureiro",
-												Valor: 120.5,
-												EmAtraso: false
-											},
-											{
-												Titular: "Marcos Dias",
-												CPF: "456.789.012-33",
-												DataNascimento: "1988-01-19",
-												Cargo: "Presidente",
-												Valor: 95.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Patrícia Almeida",
-												CPF: "567.890.123-44",
-												DataNascimento: "1990-05-23",
-												Cargo: "Secretario",
-												Valor: 175.25,
-												EmAtraso: false
-											},
-											{
-												Titular: "João Pedro",
-												CPF: "678.901.234-55",
-												DataNascimento: "1982-08-02",
-												Cargo: "Tesoureiro",
-												Valor: 300.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Bianca Ribeiro",
-												CPF: "789.012.345-66",
-												DataNascimento: "1995-09-10",
-												Cargo: "Presidente",
-												Valor: 130.6,
-												EmAtraso: false
-											},
-											{
-												Titular: "Fernando Nunes",
-												CPF: "890.123.456-77",
-												DataNascimento: "1975-12-14",
-												Cargo: "Secretario",
-												Valor: 110.0,
-												EmAtraso: true
-											},
-											{
-												Titular: "Camila Rocha",
-												CPF: "901.234.567-88",
-												DataNascimento: "1983-10-22",
-												Cargo: "Tesoureiro",
-												Valor: 140.9,
-												EmAtraso: false
-											},
-											{
-												Titular: "Diego Martins",
-												CPF: "012.345.678-99",
-												DataNascimento: "1991-06-17",
-												Cargo: "Presidente",
-												Valor: 160.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Sabrina Lopes",
-												CPF: "321.654.987-00",
-												DataNascimento: "1994-04-04",
-												Cargo: "Secretario",
-												Valor: 210.0,
-												EmAtraso: true
-											},
-											{
-												Titular: "Lucas Silva",
-												CPF: "432.765.098-11",
-												DataNascimento: "1987-03-03",
-												Cargo: "Tesoureiro",
-												Valor: 100.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Tatiane Moura",
-												CPF: "543.876.109-22",
-												DataNascimento: "1993-07-30",
-												Cargo: "Presidente",
-												Valor: 180.35,
-												EmAtraso: false
-											},
-											{
-												Titular: "Eduardo Pinto",
-												CPF: "654.987.210-33",
-												DataNascimento: "1980-01-11",
-												Cargo: "Secretario",
-												Valor: 99.9,
-												EmAtraso: false
-											},
-											{
-												Titular: "Renata Gomes",
-												CPF: "765.098.321-44",
-												DataNascimento: "1986-12-25",
-												Cargo: "Tesoureiro",
-												Valor: 250.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Marcelo Cunha",
-												CPF: "876.109.432-55",
-												DataNascimento: "1977-09-09",
-												Cargo: "Presidente",
-												Valor: 170.45,
-												EmAtraso: false
-											},
-											{
-												Titular: "Aline Barbosa",
-												CPF: "987.210.543-66",
-												DataNascimento: "1996-10-01",
-												Cargo: "Secretario",
-												Valor: 135.7,
-												EmAtraso: false
-											},
-											{
-												Titular: "Rodrigo Castro",
-												CPF: "098.321.654-77",
-												DataNascimento: "1990-06-06",
-												Cargo: "Tesoureiro",
-												Valor: 88.8,
-												EmAtraso: false
-											},
-											{
-												Titular: "Simone Teixeira",
-												CPF: "109.432.765-88",
-												DataNascimento: "1984-02-18",
-												Cargo: "Presidente",
-												Valor: 300.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Tiago Braga",
-												CPF: "210.543.876-99",
-												DataNascimento: "1989-05-12",
-												Cargo: "Secretario",
-												Valor: 145.5,
-												EmAtraso: false
-											},
-											{
-												Titular: "Verônica Farias",
-												CPF: "321.654.987-01",
-												DataNascimento: "1978-03-27",
-												Cargo: "Tesoureiro",
-												Valor: 275.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Gustavo Moreira",
-												CPF: "432.765.098-12",
-												DataNascimento: "1997-11-03",
-												Cargo: "Presidente",
-												Valor: 125.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Helena Pires",
-												CPF: "543.876.109-23",
-												DataNascimento: "1981-08-19",
-												Cargo: "Secretario",
-												Valor: 90.0,
-												EmAtraso: true
-											},
-											{
-												Titular: "Igor Fernandes",
-												CPF: "654.987.210-34",
-												DataNascimento: "1992-12-12",
-												Cargo: "Tesoureiro",
-												Valor: 100.0,
-												EmAtraso: false
-											},
-											{
-												Titular: "Larissa Carvalho",
-												CPF: "765.098.321-45",
-												DataNascimento: "1985-07-14",
-												Cargo: "Presidente",
-												Valor: 195.0,
-												EmAtraso: true
-											}
-										],
+			Mensalidades: [],
 			MensalidadesFiltered: null,
+			users: [],
 			filters: {
 				selected: "all",
 				search: "",
 				},
+			dialog: false,
+			editLoading: false,
 		};
 	},
-	mounted(){
+	async mounted(){
+		await this.loadUSers();
+		await this.loadMensalidades();
 		this.filterMesnalidades();
 	},
 	methods: {
 		greet() {
 			alert(this.message);
 		},
+
+		async loadUSers() {
+			try {
+				// Simulate an API call to fetch users
+				this.users = await userController.getUsers()
+				.then((response) => {
+					if (response.status === 200) {
+						return response.body;
+					} else {
+						throw new Error("Failed to load users");
+					}
+				});
+			} catch (error) {
+				statusCode.toastError(error);
+			}
+		},
+
+		async loadMensalidades() {
+			try {
+				// Simulate an API call to fetch mensalidades
+				this.Mensalidades = await monthlyController.getMonthlys()
+				.then((response) => {
+					if (response.status === 200) {
+						const createData = response.body.map((item) => {
+							item.User = this.users.find(user => user.id === item.iduser) || {};
+							return {
+								...item,
+								Titular: item.User?.name || "Desconhecido",
+								CPF: item.User?.cpf || "N/A",
+								DataNascimento: item.User?.data_nascimento || "N/A",
+								Cargo: item.User?.cargo || "N/A",
+							};
+						});
+						console.log("Mensalidades", createData);
+						return createData;
+					} else {
+						throw new Error("Failed to load mensalidades");
+					}
+				});
+			} catch (error) {
+				statusCode.toastError(error);			}
+		},
+
 		filterMesnalidades() {
 			switch (this.filters.selected) {
 				case "all":
