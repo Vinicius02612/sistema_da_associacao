@@ -1,6 +1,6 @@
 import BaseController from "./baseController";
 
-export default class ProjectsController {
+export default class MonthlyController {
 	urlBase = "/mensalidades";
 
 	constructor() {
