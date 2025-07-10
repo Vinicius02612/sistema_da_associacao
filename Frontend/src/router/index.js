@@ -53,9 +53,20 @@ const routes = [
 				children: [
 					{
 						path: "",
-						name: "Finanças",
-						component: () => import("@/views/Financas.vue"),
-						meta: { requiresAuth: true, preload: true },
+						children: [
+							{
+								path: "",
+								name: "Finanças",
+								component: () => import("@/views/Financas.vue"),
+								meta: { requiresAuth: true, preload: true },
+							},
+							{
+								path: "adicionar",
+								name: "Adicionar Finanças",
+								component: () => import("@/views/AddMensalidade.vue"),
+								meta: { requiresAuth: true, preload: true },
+							},
+						],
 					},
 					{
 						path: "receitas",
