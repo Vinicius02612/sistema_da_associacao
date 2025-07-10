@@ -198,8 +198,7 @@ export default {
 										}));
 								}
 						} catch (error) {
-								console.error('Erro ao carregar sócios:', error);
-								alert('Erro ao carregar lista de sócios');
+							statusCode.toastError(error);
 						}
 				},
 
