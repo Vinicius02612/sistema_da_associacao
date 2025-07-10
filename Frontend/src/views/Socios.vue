@@ -470,7 +470,6 @@ export default {
 										statusText: "Sócio editado com sucesso",
 								});
 								this.dialog = false; // Close the dialog
-								this.loadSocios(); // Reload the list of socios
 						})
 						.catch(error => {
 								statusCode.toastError({
@@ -484,6 +483,7 @@ export default {
 							}
 						);
 						await this.loadSocios(); // Reload the list of socios to reflect changes
+						this.filterSocios(); // Reapply filters after editing
 				}
 		},
 		watch: {
