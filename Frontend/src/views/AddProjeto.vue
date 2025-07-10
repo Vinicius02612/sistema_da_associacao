@@ -14,7 +14,7 @@
 										<v-text-field
 										variant="outlined"
 										v-model="data.titulo"
-										:rules="[ruleRequired, ruleFullName]"
+										:rules="[ruleRequired]"
 										></v-text-field>
 
 										<span>Usuário Relacionado</span>
@@ -28,16 +28,6 @@
 											:return-object="false"
 										/>
 
-										<span>Status</span>
-										<v-combobox
-											v-model="data.status"
-											:items="status"
-											item-title="text"
-											item-value="value"
-											variant="outlined"
-											:rules="[ruleRequired]"
-											:return-object="false"
-										></v-combobox>
 									</v-col>
 
 									<v-col cols="4">
