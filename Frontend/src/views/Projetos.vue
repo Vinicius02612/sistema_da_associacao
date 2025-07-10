@@ -267,7 +267,7 @@
 									</v-col>
 									<v-col class="d-flex align-center justify-center" cols="8">
 										<v-btn color="primary" class="ma-2" @click="confirmProjectEdition()" >
-											Adicionar
+											Confirmar Edição
 										</v-btn>
 									</v-col>
 								</v-row>
