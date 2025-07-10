@@ -116,7 +116,7 @@
 							<tbody>
 								<tr
 								v-for="(item, index) in MensalidadesFiltered"
-								:key="item.cpf"
+								:key="item.id"
 								:style="{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f8f8' }"
 								>
 								<td>{{ item.Titular }}</td>
@@ -143,7 +143,7 @@
 									<v-btn
 										width="32"
 										height="32"
-										@click="dialog = true"
+										@click="monthlyEdit(item)"
 										:loading="editLoading"
 									>
 										<v-tooltip
@@ -177,138 +177,6 @@
 			
 		</v-row>
 	</v-container>	
-	<v-dialog v-model="dialog" max-width="1300px">
-		<v-card>
-			<v-card-title class="headline">Editar Mensalidade</v-card-title>
-			<v-card class="align-center justify-center">
-					<v-card-title class="align-start justify-start">
-						Adicionar mensalidade
-					</v-card-title>
-					<v-card-text>
-							<div class="d-flex align-center justify-center" style="width: 100%;">
-								<v-row class="mt-0 ml-0 mr-0 align-start justify-center" :gutter="1">
-									<v-col cols="4">
-										<span>valor</span>
-										<v-text-field
-										variant="outlined"
-										v-model="data.titulo"
-										type="number"
-										:rules="[ruleRequired]"
-										></v-text-field>
-
-										<span>Usuário Relacionado</span>
-										<v-combobox
-											v-model="data.selectedUserId"
-											:items="socios"
-											item-title="text"
-											item-value="value"
-											:rules="[ruleRequired]"
-											variant="outlined"
-											:return-object="false"
-										/>
-
-									</v-col>
-
-									<v-col cols="4">
-										<span>Data de Vencimento</span>
-										<div class="d-flex align-center justify-center" style="width: 100%;">
-
-												<v-row dense>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.dayV"
-															label="Dia"
-															type="number"
-															:min="1"
-															:max="31"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.monthV"
-															label="Mês"
-															type="number"
-															:min="1"
-															:max="12"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.yearV"
-															label="Ano"
-															type="number"
-															:min="1900"
-															:max="2100"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-												</v-row>
-											</div>
-											<span>Data de Pagamento</span>
-											<div class="" style="width: 100%;">
-												<v-row dense>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.dayP"
-															label="Dia"
-															type="number"
-															:min="1"
-															:max="31"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.monthP"
-															label="Mês"
-															type="number"
-															:min="1"
-															:max="12"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-													<v-col cols="4">
-														<v-text-field
-															variant="outlined"
-															v-model="data.yearP"
-															label="Ano"
-															type="number"
-															:min="1900"
-															:max="2100"
-															:rules="[ruleRequired]"
-														>
-														</v-text-field>
-													</v-col>
-												</v-row>
-											</div>
-									</v-col>
-									<v-col class="d-flex align-center justify-center" cols="8">
-										<v-btn color="primary" class="ma-2" @click="addProjeto" >
-											Adicionar
-										</v-btn>
-									</v-col>
-								</v-row>
-
-							</div>
-					</v-card-text>
-				</v-card>
-			<v-card-actions>
-				<v-btn color="primary" @click="dialog = false">Fechar</v-btn>
-			</v-card-actions>
-		</v-card>
-	</v-dialog>
 </template>
 
 <script>
@@ -316,6 +184,7 @@ import DateLabel from '@/components/ui/DateLabel.vue';
 import MonthlyController from '@/controllers/monthlyControler';
 import UserController from '@/controllers/userController';
 import statusCode from '@/helpers/statusCode';
+import { ruleRequired } from '@/helpers/RulesHelper';
 
 const monthlyController = new MonthlyController();
 const userController = new UserController();
@@ -335,8 +204,7 @@ export default {
 				selected: "all",
 				search: "",
 				},
-			dialog: false,
-			editLoading: false,
+			ruleRequired,
 		};
 	},
 	async mounted(){
@@ -355,6 +223,7 @@ export default {
 				this.users = await userController.getUsers()
 				.then((response) => {
 					if (response.status === 200) {
+
 						return response.body;
 					} else {
 						throw new Error("Failed to load users");
