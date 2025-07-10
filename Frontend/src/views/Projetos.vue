@@ -120,6 +120,8 @@
 									<v-btn
 										width="32"
 										height="32"
+										@click="editProject(item.Titulo)"
+										:loading="editLoading"
 									>
 										<v-tooltip
 											activator="parent"
@@ -149,15 +151,147 @@
 			</v-col>
 			
 		</v-row>
-	</v-container>	
+	</v-container>
+	<v-dialog v-model="dialog" max-width="1300px">
+		<v-card>
+			<v-card-title class="headline">Editar projeto</v-card-title>
+			<v-card class="align-center justify-center">
+					<v-card-text>
+							<div class="d-flex align-center justify-center" style="width: 100%;">
+								<v-row class="mt-0 ml-0 mr-0 align-start justify-center" :gutter="1">
+									<v-col cols="4">
+										<span>Título deo Projeto</span>
+										<v-text-field
+										variant="outlined"
+										v-model="projToedit.titulo"
+										:rules="[ruleRequired]"
+										></v-text-field>
+
+										<span>Usuário Relacionado</span>
+										<v-combobox
+											v-model="projToedit.user"
+											:items="socios"
+											item-title="text"
+											item-value="value"
+											:rules="[ruleRequired]"
+											variant="outlined"
+											:return-object="false"
+										/>
+
+									</v-col>
+
+									<v-col cols="4">
+										<span>Data de Início</span>
+										<div class="d-flex align-center justify-center" style="width: 100%;">
+
+												<v-row dense>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataInicio.day"
+															label="Dia"
+															type="number"
+															:min="1"
+															:max="31"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataInicio.month"
+															label="Mês"
+															type="number"
+															:min="1"
+															:max="12"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataInicio.year"
+															label="Ano"
+															type="number"
+															:min="1900"
+															:max="2100"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+												</v-row>
+											</div>
+											<span>Data de Finalização</span>
+											<div class="" style="width: 100%;">
+												<v-row dense>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataFim.day"
+															label="Dia"
+															type="number"
+															:min="1"
+															:max="31"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataFim.month"
+															label="Mês"
+															type="number"
+															:min="1"
+															:max="12"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+													<v-col cols="4">
+														<v-text-field
+															variant="outlined"
+															v-model="projToedit.dataFim.year"
+															label="Ano"
+															type="number"
+															:min="1900"
+															:max="2100"
+															:rules="[ruleRequired]"
+														>
+														</v-text-field>
+													</v-col>
+												</v-row>
+											</div>
+									</v-col>
+									<v-col class="d-flex align-center justify-center" cols="8">
+										<v-btn color="primary" class="ma-2" @click="confirmProjectEdition()" >
+											Adicionar
+										</v-btn>
+									</v-col>
+								</v-row>
+
+							</div>
+					</v-card-text>
+				</v-card>
+			<v-card-actions>
+				<v-btn color="primary" @click="dialog = false">Fechar</v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-dialog>
 </template>
 
 <script>
 import DateLabel from '@/components/ui/DateLabel.vue';
 import ProjectsController from '@/controllers/projectsControler';
 import statusCode from '@/helpers/statusCode';
+import { ruleRequired, ruleFullName } from '@/helpers/RulesHelper';
+import UserController from '@/controllers/userController';
 
 const projectsControler = new ProjectsController();
+const userController = new UserController();
+
 export default {
 	name: 'projetos',
 	components: {
@@ -172,11 +306,36 @@ export default {
 				selected: "all",
 				search: "",
 				},
+			projToedit: {
+				titulo: "",
+				dataInicio:{
+					day: "",
+					month: "",
+					year: "",
+				},
+				dataFim:{
+					day: "",
+					month: "",
+					year: "",
+				},
+				user: "",
+			},
+			dialog: false,
+			editLoading: false,
+			socios: [],
+			status: [
+				{ text: 'Em Andamento', value: 'inProgress' },
+				{ text: 'Finalizado', value: 'complete' },
+				{ text: 'Cancelado', value: 'cancel' },
+			],
+			ruleFullName,
+			ruleRequired,
 		};
 	},
 	async mounted(){
 		await this.loadProjetos();
 		this.filterProjetos();
+		await this.loadSocios();
 	},
 	methods: {
 		async loadProjetos() {
@@ -190,7 +349,7 @@ export default {
 				// Um status 200 é o esperado para requisições GET bem-sucedidas
 		
 				if (response.status === 200) {
-					
+					const hoje = new Date();
 					this.projetos = response.body.map((item) => ({
 
 						id: item.id,
@@ -199,12 +358,11 @@ export default {
 						
 						dataInicio: item.dtinicio,
 						dataFim: item.dtfim,
-						status: "Em andamento", // Assumindo que o status vem como string ('Em Andamento', 'Cancelado', 'Finalizado')
+						status: hoje > new Date(item.dtfim) ? "Finalizado" : "Em Andamento",
 					}));
 				} else {
-					// Para outros status 2xx que não 200, ou casos específicos
-					console.warn('Resposta da API com status inesperado:', response.status, response.statusText);
-					alert('Houve um problema ao carregar os projetos. Tente novamente.');
+					// Se o status não for 200, lance um erro
+					throw new Error(`Erro ao carregar projetos: ${response.statusText}`);
 				}
 			} catch (error) {
 				// Captura erros de rede, erros HTTP (4xx, 5xx)
@@ -220,6 +378,22 @@ export default {
 				}
 			}
 		},
+		async loadSocios() {
+						try {
+								const response = await userController.getUsers().then((response) => {
+										return response;
+								});
+								if (response.status === 200) {
+										this.socios = response.body.map(user => ({
+											text: user.name,
+											value: user.id,
+										}));
+								}
+						} catch (error) {
+								console.error('Erro ao carregar sócios:', error);
+								alert('Erro ao carregar lista de sócios');
+						}
+				},
 		filterProjetos() {
 			let tempProjetos = [...this.projetos]; // Começa com uma cópia dos projetos originais
 
@@ -263,7 +437,68 @@ export default {
             const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês é 0-indexed
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
-        }
+        },
+		async editProject(id){
+			this.editLoading = true;
+			try {
+				const response = await projectsControler.getProject(id).then((response) => {
+					return response;
+				});
+				if (response.status === 200) {
+					console.log("Projeto carregado:", response?.body);
+					this.projToedit.id = response?.body?.id;
+					this.projToedit.titulo = response?.body?.titulo;
+					const [yearI, monthI, dayI] = response?.body?.dtinicio.split("-");
+					const [yearF, monthF, dayF] = response?.body?.dtfim.split("-");
+						this.projToedit.dataInicio = {
+							day: dayI,
+							month: monthI,
+							year: yearI,
+						},
+						this.projToedit.dataFim = {
+							day: dayF,
+							month: monthF,
+							year: yearF,
+						}
+					this.projToedit.user = response?.body?.iduser;
+					let date = new Date();
+					date > new Date(response?.body?.dtfim) ? this.projToedit.status = "complete" : this.projToedit.status = "inProgress";
+				} else {
+					throw new Error("Erro ao carregar o projeto");
+				}
+				this.dialog = true;
+			} catch (error) {
+				statusCode.toastError(error);
+			} finally {
+				this.editLoading = false;
+			}
+		},
+		async confirmProjectEdition() {
+			console.log("Confirmando edição do projeto:", this.projToedit.dataInicio.day);
+			try {
+				const payload = {
+					titulo: this.projToedit.titulo,
+					dtinicio: `${this.projToedit.dataInicio.year}-${String(this.projToedit.dataInicio.month).padStart(2, '0')}-${String(this.projToedit.dataInicio.day).padStart(2, '0')}`,
+					dtfim: `${this.projToedit.dataFim.year}-${String(this.projToedit.dataFim.month).padStart(2, '0')}-${String(this.projToedit.dataFim.day).padStart(2, '0')}`,
+					iduser: this.projToedit.user,
+				};
+
+				await projectsControler.updateProject(this.projToedit.id, payload)
+				.then(response => {
+						statusCode.toastSuccess({
+							status: response.status,
+							statusText: "Projeto editado com sucesso",
+						});
+						this.dialog = false;
+						this.loadProjetos();
+				})
+			} catch (error) {
+				statusCode.toastError(error);
+			}
+			await this.loadProjetos();
+			this.filterProjetos();
+
+		},
 	},
 	watch: {
 		"filters.search"() {
