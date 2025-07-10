@@ -110,7 +110,7 @@
 									<th>Cargo</th>
 									<th>Valor</th>
 									<th>Status</th>
-									<th>Ações</th>
+									<!-- <th>Ações</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -133,7 +133,7 @@
 									{{ item.EmAtraso ? 'Atrasada' : 'Em Dia' }}
 								</v-chip>
 							</td>
-							<td>
+							<!-- <td>
 								<v-btn-group
 									variant="outlined"
 									divided
@@ -167,7 +167,7 @@
 										<v-icon size="x-large">mdi-trash-can-outline</v-icon>
 									</v-btn>
 								</v-btn-group>
-						</td>
+						</td> -->
 					</tr>
 				</tbody>
 			</v-table>
