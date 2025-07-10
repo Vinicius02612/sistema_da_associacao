@@ -62,7 +62,7 @@ const routes = [
 							},
 							{
 								path: "adicionar",
-								name: "Adicionar Finanças",
+								name: "Adicionar Mensalidade",
 								component: () => import("@/views/AddMensalidade.vue"),
 								meta: { requiresAuth: true, preload: true },
 							},
